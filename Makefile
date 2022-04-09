@@ -1,5 +1,5 @@
 .PHONY: format
-lint:
+format:
 	poetry run pysen run format
 
 .PHONY: lint
@@ -11,6 +11,6 @@ test:
 	poetry run pytest tests --cov=src --cov-report term-missing --durations 5
 
 .PHONY: test-all
-test:
+test-all:
 	$(MAKE) lint
 	$(MAKE) test
