@@ -10,32 +10,32 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-  steps:
-    - uses: actions/checkout@v2
-    - run: pwd && docker-compose --version && docker --version
+    steps:
+      - uses: actions/checkout@v2
+      - run: pwd && docker-compose --version && docker --version
 
-    - name: Build docker image
-      run: docker-compose build --parallel core
-      working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+      - name: Build docker image
+        run: docker-compose build --parallel core
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-    - name: Start docker container
-      run: docker-compose up -d core
-      working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+      - name: Start docker container
+        run: docker-compose up -d core
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-    # pytest-cov export coverage data to a file
-    # However, the directory made by actions/checkout does not allow write
-    # chmod is needed to resolve above problem
-    - name: Change permission
-      run: chmod 777 .
+      # pytest-cov export coverage data to a file
+      # However, the directory made by actions/checkout does not allow write
+      # chmod is needed to resolve above problem
+      - name: Change permission
+        run: chmod 777 .
 
-    - name: Install dependencies
-      run: docker-compose exec -T core poetry install --no-interaction
-      working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+      - name: Install dependencies
+        run: docker-compose exec -T core poetry install --no-interaction
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-    - name: Run format check
-      run: docker-compose exec -T core make format
-      working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+      - name: Run format check
+        run: docker-compose exec -T core make format
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-    - name: Run test code
-      run: docker-compose exec -T core make test
-      working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+      - name: Run test code
+        run: docker-compose exec -T core make test
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
