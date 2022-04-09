@@ -8,7 +8,7 @@ services:
     build:
       args:
         - BASE_IMAGE=nvidia/cuda:11.0-devel-ubuntu20.04
-        - PYTHON_VERSION=3.9
+        - PYTHON_VERSION=3.8
       context: ../../
       dockerfile: environments/Dockerfile
     user: 1000:1000
