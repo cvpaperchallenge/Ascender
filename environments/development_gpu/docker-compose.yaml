@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
   core:
     runtime: nvidia
     environment:
@@ -14,6 +14,6 @@ services:
     user: 1000:1000
     tty: true
     volumes:
-        - ../../../ascender:/home/challenger/ascender
+        - ../../:/home/challenger/ascender
     ports:
         - 8000:8000
