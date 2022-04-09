@@ -1,5 +1,11 @@
+data/*
+models/*
+outputs/*
+__pycache__
 .coverage
 .mypy_cache
 .pytest_cache
 .venv
-__pycache__
+!data/README.md
+!models/README.md
+!outputs/README.md
