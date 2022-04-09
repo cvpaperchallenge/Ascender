@@ -9,22 +9,26 @@ license = "MIT"
 python = "^3.9"
 
 [tool.poetry.dev-dependencies]
-black = "^22.1.0"
-flake8 = "^4.0.1"
-isort = "^5.10.1"
-mypy = "^0.931"
 pytest-cov = "^3.0.0"
+pysen = {extras = ["lint"], version = "^0.10.1"}
 
-[tool.black]
-line-length = 88
+[tool.pysen]
+version = "0.10"
 
-[tool.isort]
-profile = "black"
+[tool.pysen.lint]
+enable_black = true
+enable_flake8 = true
+enable_isort = true
+enable_mypy = true
+mypy_preset = "strict"
 line_length = 88
+py_version = "py39"
 
-[tool.mypy]
-ignore_missing_imports = true
-show_column_numbers = true
+[tool.pysen.lint.source]
+include_globs = ["src/", "tests/"]
+
+[[tool.pysen.lint.mypy_targets]]
+paths = ["src/"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
