@@ -1,6 +1,6 @@
 version: "3.8"
 
-services: 
+services:
   core:
     runtime: nvidia
     environment:
@@ -8,12 +8,12 @@ services:
     build:
       args:
         - BASE_IMAGE=nvidia/cuda:11.0-devel-ubuntu20.04
-        - PYTHON_VERSION=3.9
+        - PYTHON_VERSION=3.8
       context: ../../
       dockerfile: environments/Dockerfile
     user: 1000:1000
     tty: true
     volumes:
-        - ../../../ascender:/home/challenger/ascender
+        - ../../:/home/challenger/ascender
     ports:
         - 8000:8000

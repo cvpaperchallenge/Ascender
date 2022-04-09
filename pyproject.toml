@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "ascender"
+version = "0.1.0"
+description = "Project template for XCCV group"
+authors = ["cvpaper.challenge XCCV group"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest-cov = "^3.0.0"
+pysen = {extras = ["lint"], version = "^0.10.1"}
+# fix click to "8.0.4" is needed to avoid following bug of black.
+# https://github.com/psf/black/issues/2964
+click = "8.0.4"
+
+[tool.pysen]
+version = "0.10"
+
+[tool.pysen.lint]
+enable_black = true
+enable_flake8 = true
+enable_isort = true
+enable_mypy = true
+mypy_preset = "strict"
+line_length = 88
+py_version = "py38"
+
+[tool.pysen.lint.source]
+include_globs = ["src/", "tests/"]
+
+[[tool.pysen.lint.mypy_targets]]
+paths = ["src/"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
