@@ -10,28 +10,44 @@ python = "^3.8"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^3.0.0"
-pysen = {extras = ["lint"], version = "^0.10.1"}
 # fix click to "8.0.4" is needed to avoid following bug of black.
 # https://github.com/psf/black/issues/2964
-click = "8.0.4"
+black = "^22.3.0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+mypy = "^0.942"
 
-[tool.pysen]
-version = "0.10"
+[tool.black]
+line-length = 88
 
-[tool.pysen.lint]
-enable_black = true
-enable_flake8 = true
-enable_isort = true
-enable_mypy = true
-mypy_preset = "strict"
+[tool.isort]
+profile = "black"
 line_length = 88
-py_version = "py38"
 
-[tool.pysen.lint.source]
-include_globs = ["src/", "tests/"]
-
-[[tool.pysen.lint.mypy_targets]]
-paths = ["src/"]
+[tool.mypy]
+python_version = 3.8
+# following setting is same as pysen
+# https://github.com/pfnet/pysen/blob/main/setup.cfg#L12
+check_untyped_defs = true
+disallow_any_decorated = false
+disallow_any_generics = false
+disallow_any_unimported = false
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = false
+disallow_untyped_defs = true
+ignore_errors = false
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+strict_optional = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
