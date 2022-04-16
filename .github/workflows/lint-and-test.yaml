@@ -32,8 +32,8 @@ jobs:
         run: docker-compose exec -T core poetry install --no-interaction
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-      - name: Run format check
-        run: docker-compose exec -T core make format
+      - name: Run lint
+        run: docker-compose exec -T core make lint
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: Run test code

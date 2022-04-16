@@ -1,0 +1,16 @@
+[flake8]
+exclude =
+    .git
+    .venv
+    .pytest_cache
+    .mypy_cache
+    __pycache__
+# These rules conflict with black. Black doesn't cover some checks of flake8 for example unused import.
+# pysen (https://github.com/pfnet/pysen/blob/main/setup.cfg#L8) also ignore following.
+ignore =
+    # https://flake8.pycqa.org/en/latest/user/error-codes.html
+    # https://pycodestyle.pycqa.org/en/latest/intro.html#error-codes
+    E203, # whitespace before ':'.
+    E231, # whitespace after ','.
+    E501, # line too long; Black prefer 88 characters. We can set length 88 characters to flake8 by "max-line-length" option but we don't need double check.
+    W503  # line break before binary operator; By default this option is not selected however once we set any "ignore" option, all non default options get enable.
