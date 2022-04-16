@@ -1,12 +1,3 @@
----
-name: development
-about: An pull request template for development
-title: ''
-labels: ''
-assignees: ''
-
----
-
 ## Issue URL
 
 <!-- Please paste url to issue here. -->
