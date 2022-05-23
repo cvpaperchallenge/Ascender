@@ -12,22 +12,22 @@ highlighter: shiki
 lineNumbers: false
 # some information about the slides, markdown enabled
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
+  ## Ascender
+  Project template for XCCV group of cvpaper.challenge.
 
-  Learn more at [Sli.dev](https://sli.dev)
+  Available from [Github](https://github.com/cvpaperchallenge/Ascender)
 # persist drawings in exports and build
 drawings:
   persist: false
 ---
 
-# Welcome to Slidev
+# Ascender
 
-Presentation slides for developers
+Accelerator of SCiENtific DEvelopment and Research
 
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
+    How to accelerate your project <carbon:arrow-right class="inline"/>
   </span>
 </div>
 
@@ -35,45 +35,58 @@ Presentation slides for developers
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl icon-btn opacity-50 !border-none !hover:text-white">
     <carbon:edit />
   </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
+  <a href="https://github.com/cvpaperchallenge/Ascender" target="_blank" alt="GitHub"
     class="text-xl icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-logo-github />
   </a>
 </div>
 
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
-
 ---
 
-# What is Slidev?
+# Terminology
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+### Python module / package / library
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - theme can be shared and used with npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embedding Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - anything possible on a webpage
+- [モジュール (module) ](https://docs.python.org/3.10/tutorial/modules.html#modules)とは`.py`ファイルのこと.
 
-<br>
-<br>
+- [パッケージ (package) ](https://docs.python.org/3.10/tutorial/modules.html#packages)とはモジュールを構造化する手段. 平たく言うと`__init__.py`ファイルと`.py`ファイルを含んだディレクトリのこと. パッケージはその中に下位のパッケージを含むこともある.
 
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/guide/syntax#embedded-styles
--->
+- ライブラリ (library) の定義についてはPythonの公式ドキュメントには記載が無いと思うのですが, PyPi等に公開されているパッケージ, もしくはパッケージの集合を意味することが多い.
 
 <style>
 h1 {
   background-color: #2B90B6;
   background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
+  background-size: 75%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: image-right
+image: /poetry-hp.png
+---
+
+# Poetry
+
+### What is it?
+
+Pythonパッケージの依存関係管理, パッケージ作成を行うためのツール.
+
+- 仮想環境の構築
+- パッケージの依存関係管理
+- 作成したパッケージのPyPIへのパブリッシュ
+
+などが出来る.
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 200%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -83,301 +96,650 @@ h1 {
 
 ---
 
-# Navigation
+# Poetry
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
+### How it work?
 
-### Keyboard Shortcuts
+- 2つの重要なファイル:
 
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
+  - `pyproject.toml`:（制約）ユーザーが`poetry add`コマンド等によって変更を行うファイル. インストールしたいパッケージのバージョンに対する制約が記載される.
 
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
+  - `poetry.lock`:（状態）Poetryが自動変更するファイル. `pyproject.toml`に記載されているバージョン制約を元に, 実際にインストールしたパッケージの情報と, 依存パッケージの情報が記載される.
 
----
-layout: image-right
-image: https://source.unsplash.com/collection/94734566/1920x1080
----
+- Poetryはパッケージをインストール・アップデートするとき, 下記の1.と2.を両方満たすバージョンが存在するかを確認し, 見つかれば実行する.（本スライドでは, 便宜上1.と2.を合わせて**更新可能要件**と表現する.）
 
-# Code
+  1. **全てのパッケージが`pyproject.toml`に記載されたバージョン制約を満たす**
 
-Use code snippets and get the highlighting directly![^1]
+  1. **既にインストールされているパッケージと依存パッケージの競合がない**
 
-```ts {all|2|1-6|9|all}
-interface User {
-  id: number
-  firstName: string
-  lastName: string
-  role: string
-}
-
-function updateUser(id: number, update: User) {
-  const user = getUser(id)
-  const newUser = { ...user, ...update }
-  saveUser(id, newUser)
-}
-```
-
-<arrow v-click="3" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
-
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
+- `poetry.lock`ファイルを含めてgithub等で共有することで, チーム間で同じパッケージの環境を共有することが出来る.
 
 <style>
-.footnotes-sep {
-  @apply mt-20 opacity-10;
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 75%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 }
-.footnotes {
-  @apply text-sm opacity-75;
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Poetry
+
+### Frequently used commands
+
+**[install](https://python-poetry.org/docs/cli/#install)**
+
+```shell {all|1|11-12|17|all}
+$ ls -1
+
+LICENSE
+Makefile
+README.md
+data
+environments
+models
+notebooks
+outputs
+poetry.lock
+pyproject.toml
+slidev
+src
+tests
+
+$ poetry install
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- `pyproject.toml`や`poetry.lock`を参照して仮想環境の構築やパッケージのインストールを行う.
+
+- configの[`virtualenvs.in-project`](https://python-poetry.org/docs/configuration/#virtualenvsin-project)が`True`になっているとプロジェクトのルートに仮想環境のためのディレクトリ`.venv`を作成する. (Ascenderでは`Dockerfile`の最後のステップでこの値を`True`としている.)
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 }
-.footnote-backref {
-  display: none;
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Poetry
+
+### Frequently used commands
+
+**[add](https://python-poetry.org/docs/cli/#add)**
+
+```shell {all|1-3|5-7|9-11|13-15|17-19|all}
+# numpyの最新のバージョンが更新可能要件を満たすかを確認し, 
+# もし満たしていればインストールする.
+$ poetry add numpy
+
+# numpyのx.y以下のバージョンで更新可能要件を満たすバージョンを
+# 順次探して, もし見つかればインストールする.
+$ poetry add "numpy<=x.y"
+
+# (Caret記法) x.y.z以上, x+1.0.0未満（厳密には正確では無い）の
+# 範囲でバージョンを順次探して, もし見つかればインストールする.
+$ poetry add "numpy^x.y.z"
+
+# cvpaperchallenge/melonのdevelopブランチのインストールを
+# 試みる.
+$ poetry add git@github.com:cvpaperchallenge/melon.git#develop
+
+# ローカルディレクトリ./my-package/下のインストールを試みる.
+$ poetry add ./my-package/
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- 更新可能要件を満たすバージョンが見つかれば, パッケージの追加を行う. (見つからなかった場合は`SolverProblemError`になる.)
+
+- パッケージであればgithubの特定のブランチやローカルディレクトリ/ファイルもインストール出来る.
+
+- 独特なバージョン指定の記法があるので, 少し覚える必要がある(後述する).
+
+- 便利な一方で, 恐らく`poetry`ユーザーが一番エラーで躓くコマンドなので, 忍耐を持って使う必要がある. (エラーが出た場合の対処方は後述する.)
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Poetry
+
+### Frequently used commands
+
+**[update](https://python-poetry.org/docs/cli/#update)**
+
+```shell {all|1-3|5-7|all}
+# 更新可能要件を満たしているパッケージを全てアップデートする.
+$ poetry update
+
+# 特定のパッケージのみに対して使用することも可能.
+$ poetry update numpy
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- 更新可能要件を満たしていれば, パッケージのアップデートを行う.
+
+- アップデート可能なパッケージの一覧は後述の`poetry show --latest`などで一覧出来る.
+
+- `pyproject.toml`に記載されているバージョン制約以上のアップデートを行いたい場合は`poetry add`を使用して再度パッケージの追加を行う.
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Poetry
+
+### Frequently used commands
+
+**[remove](https://python-poetry.org/docs/cli#remove)**
+
+```shell {all}
+# numpyをアンインストールする.
+$ poetry remove numpy
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- `poetry remove`が実行されると, `pyproject.toml`に記載されている対象のパッケージ制約の情報が削除される.
+
+- 対象のパッケージに依存している他のパッケージが無ければパッケージをアンインストールする.
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Poetry
+
+### Frequently used commands
+
+**[run](https://python-poetry.org/docs/cli/#run)**
+
+```shell {all|1-2|4-5|all}
+# poetryの作成した仮想環境内でPython3を実行します.
+$ poetry run python3
+
+# poetryの作成した仮想環境内でblackをsrcディレクトリに適用する.
+$ poetry run black src
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- Poetryの仮想環境内でコマンドを実行する. Poetryでインストールしたパッケージを使用するためにはpoetryの仮想環境内でコマンドを実行する必要がある.
+
+- 「Poetryでパッケージをインストールしたのに, それが見つからないと怒られます.」という場合は大体この`poetry run`をつけ忘れていることが多い.
+
+- その都度`poetry run`をつけるのが面倒という方は[`poetry shell`](https://python-poetry.org/docs/cli/#shell)コマンドを使って仮想環境の中でshellを立ち上げることも出来る.
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Poetry
+
+### Frequently used commands
+
+**[show](https://python-poetry.org/docs/cli/#show)**
+
+```shell {all|1-2|4-5|7-8|all}
+# 現在インストールされているパッケージの一覧を表示する.
+$ poetry show
+
+# パッケージの依存関係をツリーとして表示する.
+$ poetry show --tree
+
+# パッケージの最新のバージョンを表示する.
+$ poetry show --latest
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- Poetryでインストールしたパッケージ様々な情報を表示する.
+
+- 特に`poetry show --latest`は`poetry update`と組み合わせて使用すると便利.
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 }
 </style>
 
 ---
 
-# Components
+# Poetry
 
-<div grid="~ cols-2 gap-4">
-<div>
+### Dependency specification
 
-You can use Vue components directly inside your slides.
+**[Semantic versioning](https://semver.org/)**
 
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
+- ソフトウェアのバージョンを`x.y.z`の形で指定する.
 
-```html
-<Counter :count="10" />
-```
+- `x`はメジャーバージョンと呼ばれ, APIの変更に互換性のない場合にインクリメントする.
 
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
+- `y`はマイナーバージョンと呼ばれ, 後方互換性があり機能性を追加した場合にインクリメントする.
 
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
+- `z`はパッチバージョンと呼ばれ, 後方互換性を伴うバグ修正をした場合にインクリメントする.
 
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="-t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
-
----
-preload: false
----
-
-# Animations
-
-Animations are powered by [@vueuse/motion](https://motion.vueuse.org/).
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }">
-  Slidev
-</div>
-```
-
-<div class="w-60 relative mt-6">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-square.png"
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-circle.png"
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-triangle.png"
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 75%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 }
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 40, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn More](https://sli.dev/guide/animations.html#motion)
-
-</div>
+</style>
 
 ---
 
-# LaTeX
+# Poetry
 
-LaTeX is supported out-of-box powered by [KaTeX](https://katex.org/).
+### Dependency specification
+
+**Some examples**
+
+```shell {all|1-3|4-10|11-13|14-16|all}
+# 最新バージョンのnumpyのインストールを試みる. `poetry add numpy` と同じ挙動.
+$ poetry add numpy@latest
+
+# 等号や不等号を使ってバージョン制約の指定が可能. ""をつけないと正しく動作しないので注意.
+$ poetry add "numpy==1.21.0"
+$ poetry add "numpy>=1.21.0"
+$ poetry add "numpy<=1.21.0"
+$ poetry add "numpy>1.21.0"
+$ poetry add "numpy<1.21.0"
+
+# 複数組み合わせて指定することも可能.
+$ poetry add "numpy>=1.21.0,<1.22.4"
+
+# Poetry特有の記法もある (後述).
+$ poetry add "numpy^1.21.0"
+$ poetry add "numpy~1.21.0"
+```
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 75%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+
+# Poetry
+
+### Dependency specification
+
+**[Caret requirements](https://python-poetry.org/docs/dependency-specification/#caret-requirements)**
+
+- `^`を用いてバージョン制約を記述する.
+
+- ゼロでない再左の数字を変更しない範囲を表す.
+
+| 例 | 表す範囲 |
+| --- | --- |
+| `^1.2.3` | `>=1.2.3,<2.0.0` |
+| `^1.2`   | `>=1.2.0,<2.0.0` |
+| `^1`     | `>=1.0.0,<2.0.0` |
+| `^0.2.3` | `>=0.2.3,<0.3.0` |
+| `^0.0.3` | `>=0.0.3,<0.0.4` |
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 75%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+
+# Poetry
+
+### Dependency specification
+
+**[Tilde requirements](https://python-poetry.org/docs/dependency-specification/#tilde-requirements)**
+
+- `~`を用いてバージョン制約を記述する.
+
+- 形式によって意味が異なる.
+
+  - `~x.y.z`または`~x.y`の形式のときパッチバージョンの変更の範囲を表す.
+  - `~x`の形式のときマイナーバージョンの変更の範囲を表す.
+
+| 例 | 表す範囲 |
+| --- | --- |
+| `~1.2.3` | `>=1.2.3,<1.3.0` |
+| `~1.2`   | `>=1.2.0,<1.3.0` |
+| `~1`     | `>=1.0.0,<2.0.0` |
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 75%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Poetry
+
+### Frequently faced Error
+
+**SolverProblemError**
+
+```shell {all|1-3|8-15|all}
+# AWSに関連する２つのパッケージのインストールを試みる
+$ poetry add "boto3==1.16.43"
+$ poetry add "s3fs^2022.5.0"
+
+Updating dependencies
+Resolving dependencies... (0.4s)
+
+  SolverProblemError
+
+  (途中略)
+  Thus, s3fs (>=2022.5.0,<2023.0.0) requires botocore (>=1.24.21,<1.24.22).
+  And because boto3 (1.16.43) depends on botocore (>=1.19.43,<1.20.0), s3fs (>=2022.5.0,<2023.0.0) is incompatible with boto3 (1.16.43).
+  So, because ascender depends on both boto3 (1.16.43) and s3fs (^2022.5.0), version solving failed.
+```
+
+</div>
+</template>
+<template v-slot:right>
 
 <br>
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$
-\begin{array}{c}
-
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
-= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-
-\nabla \cdot \vec{\mathbf{B}} & = 0
-
-\end{array}
-$$
-
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 
-[Learn more](https://sli.dev/guide/syntax#latex)
+- `s3fs`は`botocore(>=1.24.21,<1.24.22)`に, `boto3`は`botocore (>=1.19.43,<1.20.0)`にそれぞれ依存しており, 依存パッケージが競合している. これは, 更新可能要件の2.を満たしていないためSolverProblemErrorが発生する.
+
+- `s3fs`と`boto3`を両方インストールするにはバージョン制約を調整して, `botocore`の競合が発生しないようにする必要がある.
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 
 ---
+layout: two-cols
+---
 
-# Diagrams
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
 
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
+# Poetry
 
-<div class="grid grid-cols-3 gap-10 pt-4 -mb-6">
+### Frequently faced Error
 
-```mermaid {scale: 0.5}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
+**SolverProblemError**
 
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
+```shell {all|1-3|13|all}
+# AWSに関連する２つのパッケージのインストールを試みる
+$ poetry add "boto3==1.16.43"
+$ poetry add "s3fs<=2022.5.0" # s3fsの制約を緩める
 
-```plantuml {scale: 0.7}
-@startuml
+Updating dependencies
+Resolving dependencies... (8.4s)
 
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
+Writing lock file
 
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
+Package operations: 2 installs, 0 updates, 0 removals
 
-cloud {
-  [Example 1]
-}
-
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
+  • Installing fsspec (2022.5.0)
+  • Installing s3fs (0.4.2)
 ```
 
 </div>
+</template>
+<template v-slot:right>
 
-[Learn More](https://sli.dev/guide/syntax.html#diagrams)
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
+- 例えば, `s3ds`のバージョン制約を緩めることで, `boto3`の依存している`botocore`のバージョンと競合しないバージョンの`s3ds`のバージョンを探索してくれる.
+
+- 上のようにバージョン制約を緩めても競合しないバージョンがもし見つからない場合は同様にSolverProblemErrorが発生する. このような場合は`boto3`側の制約も緩めることを考える必要がある.
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 
 ---
 layout: center
 class: text-center
 ---
 
-# Learn More
+# About us
 
-[Documentations](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html)
+[cvpaper.challenge](http://xpaperchallenge.org/cv/) 
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 400%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
