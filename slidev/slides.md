@@ -42,10 +42,351 @@ Accelerator of SCiENtific DEvelopment and Research
 </div>
 
 ---
+layout: cover
+---
 
-# Terminology
+# Ascender
 
-### Python module / package / library
+---
+
+# Ascender
+
+### What is it?
+
+- 主にPythonを開発言語として使用した研究プロジェクト向けの[Githubのリポジトリテンプレート](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository).
+
+- 開発時に有用な機能を多数サポート.
+  - コンテナ: [Docker](https://www.docker.com/)を使用することで開発環境依存を減らし, コードの移植性を向上.
+  - 仮想環境構築/パッケージ管理: [Poetry](https://python-poetry.org/)を使用したパッケージ管理により, 同一環境の再現性を向上.
+  - コードスタイル: [Black](https://github.com/psf/black), [Flake8](https://github.com/pycqa/flake8), [isort](https://github.com/PyCQA/isort)を使用してコードスタイルを統一.
+  - 静的型チェック: [Mypy](https://github.com/python/mypy)による静的型チェックによりコードの信頼性を向上.
+  - テスト: [pytest](https://github.com/pytest-dev/pytest/)を使用したテストコードを簡単に追加可能.
+  - GitHub関連機能: [Pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)時のスタイル確認・テストの[workflow](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)や[issueテンプレート](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)等を実装済.
+
+- https://github.com/cvpaperchallenge/Ascender からアクセス可能.
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 75%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: image-right
+image: /ascender-github-root.png
+---
+
+# Ascender
+
+### How to use it?
+
+以下の手順でAscenderをテンプレートとしてGitHubリポジトリが作成可能.
+
+- [AscenderのGitHubリポジトリ](https://github.com/cvpaperchallenge/Ascender)にアクセス.
+- "Use this template"ボタンをクリック.
+- 作成するリポジトリの情報を入力し, "Create repository from template"をクリック.
+
+テンプレートからリポジトリを作成する方法は[Githubのドキュメント](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)にも説明がある.
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: image-right
+image: /ascender-github-root-use-this-template.png
+---
+
+# Ascender
+
+### How to use it?
+
+以下の手順でAscenderをテンプレートとしてGitHubリポジトリが作成可能.
+
+- [AscenderのGitHubリポジトリ](https://github.com/cvpaperchallenge/Ascender)にアクセス.
+- "Use this template"ボタンをクリック.
+- 作成するリポジトリの情報を入力し, "Create repository from template"をクリック.
+
+テンプレートからリポジトリを作成する方法は[Githubのドキュメント](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)にも説明がある.
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: image-right
+image: /ascender-github-create-from-template.png
+---
+
+# Ascender
+
+### How to use it?
+
+以下の手順でAscenderをテンプレートとしてGitHubリポジトリが作成可能.
+
+- [AscenderのGitHubリポジトリ](https://github.com/cvpaperchallenge/Ascender)にアクセス.
+- "Use this template"ボタンをクリック.
+- 作成するリポジトリの情報を入力し, "Create repository from template"をクリック.
+
+テンプレートからリポジトリを作成する方法は[Githubのドキュメント](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)にも説明がある.
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+
+# Ascender
+
+### How to use it?
+
+**Directory structure**
+
+```shell {all|9|all}
+$ tree -L 1 --dirsfirst  # カレントディレクトリ下のディレクトリとファイルを, 1階層の深さだけ, ディレクトリから先に表示するコマンド.
+
+.
+├── data           # <- データセットを格納するためのディレクトリ. 
+├── environments   # <- Docker関連のファイルを格納するディレクトリ.
+├── models         # <- 学習済みのMLモデル等を格納するためのディレクトリ.
+├── notebooks      # <- Jupyter Notebookを格納するためのディレクトリ. 
+├── outputs        # <- コード実行時の出力を格納するためのディレクトリ. 
+├── slidev         # <- この資料を作成しているSlidevのためのディレクトリ. 必要なければ削除して問題ありません.
+├── src            # <- メインの開発物を格納するディレクトリ. このディレクトリ下がPythonパッケージとなることを想定しています.
+├── tests          # <- pytestのテストを格納するディレクトリ. 全てのテストはこのディレクトリ下に追加して下さい.
+├── LICENSE        # <- ライセンス情報を記載するファイル.
+├── Makefile       # <- タスクランナーとして使用しているMakeの設定ファイル. 頻出のタスクを短いコマンドで実行出来るようにしています.
+├── poetry.lock    # <- Poetryが自動変更するファイル. IMPORTANT: 直接編集しないで下さい!
+├── pyproject.toml # <- Projectの設定を記載するファイル. Poetry, Black, Flake8, isort, Mypy等の設定が記載されています.
+└── README.md      # <- Ascenderについての基本的な説明が記載されているファイル.
+```
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 75%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Ascender
+
+### How to use it?
+
+**Start development**
+
+```shell {all}
+# cpu環境の場合は`cd environments/cpu`
+$ cd environments/gpu
+
+# Dockerfileからイメージをビルドし, 
+# ビルドされたイメージからコンテナを作成. 
+# dオプションをつけるとコンテナをバックグラウンドで実行.
+$ sudo docker compose up -d
+
+# コンテナ内でbashを実行(コンテナ内に入る).
+$ sudo docker compose exec core bash
+
+# Poetryで仮想環境を構築し, 依存パッケージをインストール.
+$ poetry install
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- 初回の実行時は`sudo docker compose up -d`に時間がかかる.
+
+- 環境によっては`docker`の実行に`sudo`が必要ない場合がある.
+
+- `poetry install`は初回のみ実行すれば良い.（`Poetry`の使い方については後述.）
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Ascender
+
+### How to use it?
+
+**During development**
+
+```shell {all}
+# Poetryを使用して新しいパッケージを仮想環境にインストール.
+$ poetry add torch
+
+# 仮想環境内でコマンドを実行するときは`poetry run`を使用. 
+# 例. 仮想環境内でPythonのインタラクティブシェルを起動.
+$ poetry run python3
+
+# Makefile内に頻出するタスクの短縮コマンドを定義.
+# `src`と`test`下のファイルのコードスタイルを自動整形.
+$ make format
+# `src`と`test`下のファイルのコードスタイルチェックと
+# 静的型チェックを行い, pytestでテストコードを実行.
+$ make test-all
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- 開発時はコンテナ内に`Poetry`が作成した仮想環境を使用.（`Poetry`の使い方については後述.）
+
+- `Makefile`をタスクランナーと使用し, 頻出するタスクを`make`で簡単に実行可能.
+
+- GithubでPull Requestを作成時にスタイルチェック, 静的型チェック, テストコード実行を行うCI用のworkflowも実装済.
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+<div class="mr-4">
+<!-- I want to indent div tag part but if indent it, code block navigation doesn't work. -->
+
+# Ascender
+
+### How to use it?
+
+**Stop development**
+
+```shell {all}
+# cpu環境の場合は`cd environments/cpu`
+$ cd environments/gpu
+
+# コンテナを停止.
+$ sudo dokcer compose stop
+
+# もしコンテナを削除したい場合は停止と削除を一度に行うことも可能.
+$ sudo docker compose down
+```
+
+</div>
+</template>
+<template v-slot:right>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+- 基本的にコンテナをバックグラウンドで実行し続けていても問題無いが, コンテナを停止したいときは`docker compose stop`を使用. 再度立ち上げるときは"Start development"の処理を繰り返せば良い.
+
+- `docker compose down`を使用するとコンテナを削除可能.
+
+</template>
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 150%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+
+# Off-topic
+
+### Terminology: Python module / package / library
 
 - [モジュール (module) ](https://docs.python.org/3.10/tutorial/modules.html#modules)とは`.py`ファイルのこと.
 
@@ -64,6 +405,12 @@ h1 {
   -moz-text-fill-color: transparent;
 }
 </style>
+
+---
+layout: cover
+---
+
+# Poetry
 
 ---
 layout: image-right
@@ -86,7 +433,7 @@ Pythonパッケージの依存関係管理, パッケージ作成を行うため
 h1 {
   background-color: #2B90B6;
   background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 200%;
+  background-size: 150%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
