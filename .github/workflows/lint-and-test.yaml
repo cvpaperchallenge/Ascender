@@ -1,4 +1,4 @@
-name: Lint and test
+name: tests
 on: [pull_request]
 
 env:
@@ -8,14 +8,24 @@ env:
 
 jobs:
   lint-and-test:
-    runs-on: ubuntu-latest
+    name: ${{ matrix.os }} / ${{ matrix.python-version }}
+    runs-on: ${{ matrix.image }}
     timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu]
+        python-version: ["3.8", "3.9"]
+        include:
+          - os: ubuntu
+            image: ubuntu:20.04
+
     steps:
       - uses: actions/checkout@v2
       - run: pwd && docker-compose --version && docker --version
 
       - name: Build docker image
-        run: docker-compose build --parallel core
+        run: docker-compose build --parallel --build-arg PYTHON_VERSION=${{ matrix.python-version }} core
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: Start docker container
