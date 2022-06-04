@@ -18,7 +18,7 @@ jobs:
         python-version: ["3.8", "3.9"]
         include:
           - os: ubuntu
-            image: ubuntu:20.04
+            image: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
