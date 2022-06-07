@@ -11,19 +11,6 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     LANG="C.UTF-8" \
     PYTHONPATH=${APPLICATION_DIRECTORY}
 
-# Due to Nvidia's GPG repository key update, old key should be removed here.
-# NVIDIA blog: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
-# Reference: https://github.com/NVIDIA/nvidia-docker/issues/1631#issuecomment-1112828208
-# After the base image is updated, following block will be able to remove.
-# NOTE: If you want to chose not default base image, you might need to update DISTRO augment part.
-ARG DISTRO=ubuntu2004
-RUN rm /etc/apt/sources.list.d/cuda.list | true
-RUN rm /etc/apt/sources.list.d/nvidia-ml.list | true
-RUN apt-key del 7fa2af80 | true
-RUN apt-key del F796ECB0 | true
-RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/${DISTRO}/x86_64/3bf863cc.pub | true
-RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/${DISTRO}/x86_64/7fa2af80.pub | true
-
 # Following is needed to install python 3.7
 RUN apt update && apt install --no-install-recommends -y software-properties-common 
 RUN add-apt-repository ppa:deadsnakes/ppa

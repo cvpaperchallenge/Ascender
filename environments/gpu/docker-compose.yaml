@@ -7,7 +7,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     build:
       args:
-        - BASE_IMAGE=nvidia/cuda:11.0-devel-ubuntu20.04
+        - BASE_IMAGE=nvidia/cuda:11.0.3-devel-ubuntu20.04
         - PYTHON_VERSION=3.8
       context: ../../
       dockerfile: environments/Dockerfile
