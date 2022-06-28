@@ -1,9 +1,0 @@
-environments
-.coverage
-.dockerignore
-.git
-.github
-.gitignore
-.mypy_cache
-.pytest_cache
-.venv
