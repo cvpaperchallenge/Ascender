@@ -6,6 +6,5 @@ build-container:
 
 .PHONY: build
 build:
-	mkdir --parents build
 	docker build --tag ${CONTAINER-TAG} .
 	docker run --rm --volume $$(pwd)/src:/home/node/ascender/src --volume $$(pwd)/build:/home/node/ascender/build ${CONTAINER-TAG}
