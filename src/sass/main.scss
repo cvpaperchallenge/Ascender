@@ -11,8 +11,8 @@ $break-point-tablet-desktop: 1025px;
 
 $container-max-width: 1440px;
 
-@mixin mobile {
-  @media screen and (max-width: $break-point-mobile-tablet) {
+@mixin desktop {
+  @media screen and (min-width: $break-point-tablet-desktop) {
     @content;
   }
 }
@@ -23,8 +23,8 @@ $container-max-width: 1440px;
   }
 }
 
-@mixin desktop {
-  @media screen and (min-width: $break-point-tablet-desktop) {
+@mixin mobile {
+  @media screen and (max-width: $break-point-mobile-tablet) {
     @content;
   }
 }
