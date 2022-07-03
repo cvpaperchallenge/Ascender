@@ -1,0 +1,21 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+indent_style = space
+
+[*.html]
+# intdent_size = 2 because MDN examples has this rule.
+# https://developer.mozilla.org/ja/docs/Web/HTML/Element/head#example
+indent_size = 2
+
+[*.scss]
+# intdent_size = 2 because Sass official document looks like having this rule.
+# https://sass-lang.com/guide
+indent_size = 2
+
+[Makefile]
+# Make doesn't allow space indentation.
+indent_style = tab
