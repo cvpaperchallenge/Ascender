@@ -1,3 +1,50 @@
-body {
-  background-color: white;
+$_base-space: 1rem * 0.25;
+$space-1: $_base-space * 1;
+$space-2: $_base-space * 2;
+
+// Breakpoint note
+// mobile: 0px ~ 768px
+// tablet: 769px ~ 1024px
+// desktop: 1025px ~
+$break-point-mobile-tablet: 769px;
+$break-point-tablet-desktop: 1025px;
+
+$container-max-width: 1440px;
+
+@mixin desktop {
+  @media screen and (min-width: $break-point-tablet-desktop) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: $break-point-mobile-tablet) and (max-width: $break-point-tablet-desktop) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: $break-point-mobile-tablet) {
+    @content;
+  }
+}
+
+html, body {
+  margin: 0;
+}
+
+.container {
+  @include desktop {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $space-2;
+  }
+
+  @include tablet {
+    padding: 0 $space-2;
+  }
+
+  @include mobile {
+    padding: 0 $space-1;
+  }
 }
