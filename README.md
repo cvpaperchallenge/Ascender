@@ -6,7 +6,7 @@
 
 ## What is Ascender?
 
-Ascender (Accelerator of SCiENtific DEvelopment and Research) is a [Github repository template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository) for research projects using Python as a developing language. The following features are pre-implemented to accelerate your development:
+Ascender (Accelerator of SCiENtific DEvelopment and Research) is a [GitHub repository template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository) for research projects using Python as a developing language. The following features are pre-implemented to accelerate your development:
 
 
 - **Container**: Use of [Docker](https://www.docker.com/) reduces development environment dependencies and improves code portability.
@@ -15,6 +15,8 @@ Ascender (Accelerator of SCiENtific DEvelopment and Research) is a [Github repos
 - **Static type check**: Static type checking with [Mypy](https://github.com/python/mypy) to assist in finding bugs.
 - **pytest**: Easily add test code using [pytest](https://github.com/pytest-dev/pytest).
 - **GitHub features**: Some useful features, [workflow](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) for style check and test for pull request, [issue template](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository), etc. are pre-implemented.
+
+Please check [the slide format resources about Ascender (Japanese)](https://cvpaperchallenge.github.io/Britannica/ascender/ja) too.
 
 ## Project Organization
 
@@ -98,11 +100,47 @@ $ sudo systemctl restart docker
 
 If `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` works, installation succeeded.
 
-## Start development using Ascender
-TBD
+## Quick start
 
-## Checklist before push
-TBD
+Here, we explain how to start using Ascender. Please refer to [this slide (Japanese)](https://cvpaperchallenge.github.io/Britannica/ascender/ja) for detailed information.
+
+### Create GitHub repo from Ascender
+
+Fisrt of all, you need to create your own GitHub repo from Ascender as follows:
+
+- Visit [GitHub repo page of Ascender](https://github.com/cvpaperchallenge/Ascender).
+- Press ["Use this template"](https://github.com/cvpaperchallenge/Ascender/generate) button in the upper right part of the page.
+- Fill in the items on the page, and press "Create repository from template" button.
+
+Now, a new repo should be created from Ascender in your GitHub account.
+
+### Start development
+
+```bash
+# Clone repo
+$ git clone git@github.com:cvpaperchallenge/<YOUR_REPO_NAME>.git
+$ cd <YOUR_REPO_NAME>
+
+# Build Docker image and run container
+$ cd environments/gpu  # if you want to use only cpu, `cd environments/cpu` 
+$ sudo docker compose up -d
+
+# Run bash inside of container (jump into contaienr)
+$ sudo docker compose exec core bash
+
+# Create virtual environment and install dependent packages by Poetry
+$ poetry install
+```
+
+Now, you are ready to start development with Ascender.
+
+### Stop development
+
+```bash
+# Stop container
+$ cd environments/gpu  # or `cd environments/cpu` 
+$ sudo dokcer compose stop
+```
 
 ## FQA
 TBD
