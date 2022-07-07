@@ -1,6 +1,8 @@
 $_base-space: 1rem * 0.25;
 $space-1: $_base-space * 1;
 $space-2: $_base-space * 2;
+$space-6: $_base-space * 6;
+$space-12: $_base-space * 12;
 
 // Breakpoint note
 // mobile: 0px ~ 768px
@@ -10,6 +12,8 @@ $break-point-mobile-tablet: 769px;
 $break-point-tablet-desktop: 1025px;
 
 $container-max-width: 1440px;
+
+$alternative-background-color: #eee;
 
 @mixin desktop {
   @media screen and (min-width: $break-point-tablet-desktop) {
@@ -46,5 +50,17 @@ html, body {
 
   @include mobile {
     padding: 0 $space-1;
+  }
+}
+
+.section {
+  padding: $space-12 0;
+}
+
+.citation {
+  & > pre {
+    overflow-x: auto;
+    padding: $space-6;
+    background: $alternative-background-color;
   }
 }
