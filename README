@@ -1,0 +1,6 @@
+# Ascender
+
+## How to use
+
+1. Run `make build-container` to build the container of this tool. While running this command, node modules will be installed.
+2. Run `make build` to build CSS.
