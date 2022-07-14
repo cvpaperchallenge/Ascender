@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/cvpaperchallenge/Ascender.git"
   },
-  "author": "",
+  "author": "cvpaper.challenge XCCV group",
   "license": "MIT",
   "devDependencies": {
     "node-sass": "^7.0.1",
