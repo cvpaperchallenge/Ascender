@@ -1,8 +1,8 @@
-$_base-space: 1rem * 0.25;
-$space-1: $_base-space * 1;
-$space-2: $_base-space * 2;
-$space-6: $_base-space * 6;
-$space-12: $_base-space * 12;
+$-base-space: 1rem * 0.25;
+$space-1: $-base-space * 1;
+$space-2: $-base-space * 2;
+$space-6: $-base-space * 6;
+$space-12: $-base-space * 12;
 
 // Breakpoint note
 // mobile: 0px ~ 768px
@@ -10,9 +10,7 @@ $space-12: $_base-space * 12;
 // desktop: 1025px ~
 $break-point-mobile-tablet: 769px;
 $break-point-tablet-desktop: 1025px;
-
 $container-max-width: 1440px;
-
 $alternative-background-color: #eee;
 
 @mixin desktop {
@@ -33,7 +31,8 @@ $alternative-background-color: #eee;
   }
 }
 
-html, body {
+html,
+body {
   margin: 0;
 }
 

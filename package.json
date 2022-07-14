@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "build": "node-sass src/sass/main.scss --output-style compressed --output build",
-    "watch": "node-sass src/sass/main.scss --output-style compressed --output build --watch"
+    "watch": "node-sass src/sass/main.scss --output-style compressed --output build --watch",
+    "lint": "prettier --check '**/*.{html, scss}' && stylelint **/*.scss",
+    "lint:fix": "prettier --write '**/*.{html, scss}' && stylelint --fix **/*.scss"
   },
   "repository": {
     "type": "git",
@@ -13,6 +15,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "node-sass": "^7.0.1"
+    "node-sass": "^7.0.1",
+    "prettier": "^2.7.1",
+    "stylelint": "^14.9.1",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-config-standard-scss": "^4.0.0",
+    "stylelint-scss": "^4.3.0"
   }
 }
