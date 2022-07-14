@@ -1,32 +1,26 @@
-$-base-space: 1rem * 0.25;
+$-base-space: 1rem * 0.5;
+$space-half: $-base-space * 0.5;
 $space-1: $-base-space * 1;
 $space-2: $-base-space * 2;
+$space-3: $-base-space * 3;
 $space-6: $-base-space * 6;
 $space-12: $-base-space * 12;
 
 // Breakpoint note
 // mobile: 0px ~ 768px
-// tablet: 769px ~ 1024px
-// desktop: 1025px ~
-$break-point-mobile-tablet: 769px;
-$break-point-tablet-desktop: 1025px;
-$container-max-width: 1440px;
+// desktop: 769px ~
+$break-point-mobile-desktop: 769px;
+$container-max-width: 940px;
 $alternative-background-color: #eee;
 
 @mixin desktop {
-  @media screen and (min-width: $break-point-tablet-desktop) {
-    @content;
-  }
-}
-
-@mixin tablet {
-  @media screen and (min-width: $break-point-mobile-tablet) and (max-width: $break-point-tablet-desktop) {
+  @media screen and (min-width: $break-point-mobile-desktop) {
     @content;
   }
 }
 
 @mixin mobile {
-  @media screen and (max-width: $break-point-mobile-tablet) {
+  @media screen and (max-width: $break-point-mobile-desktop) {
     @content;
   }
 }
@@ -40,11 +34,7 @@ body {
   @include desktop {
     max-width: $container-max-width;
     margin: 0 auto;
-    padding: 0 $space-2;
-  }
-
-  @include tablet {
-    padding: 0 $space-2;
+    padding: 0 $space-3;
   }
 
   @include mobile {
@@ -54,6 +44,29 @@ body {
 
 .section {
   padding: $space-12 0;
+}
+
+.title {
+  text-align: center;
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-half;
+}
+
+.horizon {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: $space-3;
+  padding: 0;
+  list-style: none;
+
+  // &.centerize {
+
+  // }
 }
 
 .citation {
