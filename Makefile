@@ -16,3 +16,7 @@ watch:
 .PHONY: shell
 shell:
 	docker run --rm --volume $$(pwd):/home/node/ascender --entrypoint bash --interactive --tty ${CONTAINER-TAG}
+
+.PHONY: serve
+serve:
+	python3 -m http.server --directory build
