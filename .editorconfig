@@ -19,6 +19,9 @@ indent_size = 2
 [*.json]
 indent_size = 2
 
+[*.js]
+indent_size = 2
+
 [Makefile]
 # Make doesn't allow space indentation.
 indent_style = tab
