@@ -5,6 +5,8 @@ $space-2: $-base-space * 2;
 $space-3: $-base-space * 3;
 $space-6: $-base-space * 6;
 $space-12: $-base-space * 12;
+$space-20: $-base-space * 20;
+$authors-author-width: $space-20;
 
 // Breakpoint note
 // mobile: 0px ~ 768px
@@ -55,18 +57,23 @@ body {
   flex-direction: column;
   align-items: center;
   gap: $space-half;
+
+  & > * {
+    text-align: center;
+  }
 }
 
-.horizon {
+.authors {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
   gap: $space-3;
   padding: 0;
   list-style: none;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, $authors-author-width);
+}
 
-  // &.centerize {
-
-  // }
+.centerize {
+  text-align: center;
 }
 
 .citation {
