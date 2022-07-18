@@ -142,5 +142,24 @@ $ cd environments/gpu  # or `cd environments/cpu`
 $ sudo dokcer compose stop
 ```
 
-## FQA
-TBD
+## FAQ
+
+### Permission error is raised when execute `poetry install`.
+
+Sometime `poetry install` might rise permission error like following:
+
+```bash
+$ poetry install
+...
+
+virtualenv: error: argument dest: the destination . is not write-able at /home/challenger/ascender
+```
+
+In that case, please check UID (user id) and GID (group id) at your local PC by following:
+
+```bash
+$ id -u $USER  # check UID
+$ id -g $USER  # check GID
+```
+
+In Ascender, default value of both is `1000`. If UID or GID of your local PC is not `1000`, you need to modify the value of `UID` or `GID` inside of `docker-compose.yaml` to align your local PC (please edit their values from `1000`).
