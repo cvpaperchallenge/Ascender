@@ -5,8 +5,8 @@
   "scripts": {
     "build": "node-sass src/sass/main.scss --output-style compressed --output build",
     "watch": "node-sass src/sass/main.scss --output-style compressed --output build --watch",
-    "lint": "prettier --check '**/*.{html, scss}' && stylelint **/*.scss",
-    "lint:fix": "prettier --write '**/*.{html, scss}' && stylelint --fix **/*.scss"
+    "lint": "prettier --check '**/*.{html,js}' && stylelint **/*.scss",
+    "lint:fix": "prettier --write '**/*.{html,js}' && stylelint --fix **/*.scss"
   },
   "repository": {
     "type": "git",

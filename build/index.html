@@ -5,70 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Project Page Template</title>
     <link href="./main.css" rel="stylesheet" />
+    <!-- Remove if you don't use Carousel Slider section -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/keen-slider@6.7.0/keen-slider.min.css"
+    />
   </head>
   <body>
-    <div class="container">
-      <h1 class="title">Project Page Template</h1>
-      <div>
-        <ul class="authors">
-          <li>
-            <div class="author">
-              <a href="https://gatheluck.net" target="_blank"
-                >Yoshihiro Fukuhara<sup>*</sup></a
-              >
-              <span>Waseda University</span>
-            </div>
-          </li>
-          <li>
-            <div class="author">
-              <a href="https://gatheluck.net" target="_blank"
-                >Yoshihiro<sup>*</sup></a
-              >
-              <span>Waseda</span>
-            </div>
-          </li>
-          <li>
-            <div class="author">
-              <a href="https://gatheluck.net" target="_blank"
-                >Yoshihiro Fukuhara</a
-              >
-              <span>Waseda University</span>
-            </div>
-          </li>
-          <li>
-            <div class="author">
-              <a href="https://gatheluck.net" target="_blank"
-                >Yoshihiro Fukuhara</a
-              >
-              <span>Waseda University</span>
-            </div>
-          </li>
-          <li>
-            <div class="author">
-              <a href="https://gatheluck.net" target="_blank"
-                >Yoshihiro Fukuhara</a
-              >
-              <span>Waseda University</span>
-            </div>
-          </li>
-        </ul>
-        <div class="centerize">
-          <span><sup>*</sup>Equal Contribution</span>
+    <div class="section">
+      <div class="container">
+        <h1 class="title">Project Page Template</h1>
+        <div>
+          <ul class="authors">
+            <li>
+              <div class="author">
+                <a href="https://gatheluck.net" target="_blank"
+                  >Yoshihiro Fukuhara<sup>*</sup></a
+                >
+                <span>Waseda University</span>
+              </div>
+            </li>
+            <li>
+              <div class="author">
+                <a href="https://gatheluck.net" target="_blank"
+                  >Yoshihiro<sup>*</sup></a
+                >
+                <span>Waseda</span>
+              </div>
+            </li>
+            <li>
+              <div class="author">
+                <a href="https://gatheluck.net" target="_blank"
+                  >Yoshihiro Fukuhara</a
+                >
+                <span>Waseda University</span>
+              </div>
+            </li>
+            <li>
+              <div class="author">
+                <a href="https://gatheluck.net" target="_blank"
+                  >Yoshihiro Fukuhara</a
+                >
+                <span>Waseda University</span>
+              </div>
+            </li>
+            <li>
+              <div class="author">
+                <a href="https://gatheluck.net" target="_blank"
+                  >Yoshihiro Fukuhara</a
+                >
+                <span>Waseda University</span>
+              </div>
+            </li>
+          </ul>
+          <div class="centerize">
+            <span><sup>*</sup>Equal Contribution</span>
+          </div>
         </div>
       </div>
-      <section class="section citation">
+    </div>
+    <section class="section dark-color-scheme">
+      <div class="container">
+        <h2>Carousel Slider</h2>
+        <div>
+          <div id="ascender-carousel-slider" class="keen-slider">
+            <div class="keen-slider__slide">
+              <figure class="ratio-16x9">
+                <img
+                  src="http://xpaperchallenge.org/cv/_nuxt/img/5e60a5c.png"
+                />
+              </figure>
+            </div>
+            <div class="side-by-side keen-slider__slide">
+              <figure class="ratio-16x9">
+                <img
+                  src="http://xpaperchallenge.org/cv/_nuxt/img/72c9a10.png"
+                />
+              </figure>
+              <div class="ratio-16x9">
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/CY8380xOUCM"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+            <div class="side-by-side keen-slider__slide">
+              <figure class="ratio-16x9">
+                <img
+                  src="http://xpaperchallenge.org/cv/_nuxt/img/b964aa7.png"
+                />
+              </figure>
+              <figure class="ratio-16x9">
+                <img
+                  src="http://xpaperchallenge.org/cv/_nuxt/img/4dee722.png"
+                />
+              </figure>
+            </div>
+            <div class="keen-slider__slide">
+              <div class="ratio-16x9">
+                <video
+                  src="https://hirokatsukataoka16.github.io/Recursive-Tiling-Patterns/img/211017ICCV2021WS_TileDB.mp4"
+                  controls="true"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container citation">
         <h2>Citation</h2>
         <pre>
-@inproceedings{hara2018can,
+  @inproceedings{hara2018can,
   title={Can spatiotemporal 3d cnns retrace the history of 2d cnns and imagenet?},
   author={Hara, Kensho and Kataoka, Hirokatsu and Satoh, Yutaka},
   booktitle={Proceedings of the IEEE conference on Computer Vision and Pattern Recognition},
   pages={6546--6555},
   year={2018}
-}
-</pre
+  }
+  </pre
         >
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <!-- Remove if you don't use Carousel Slider section -->
+    <script src="https://cdn.jsdelivr.net/npm/keen-slider@6.7.0/keen-slider.min.js"></script>
+
+    <script src="./ascender.js"></script>
   </body>
 </html>
