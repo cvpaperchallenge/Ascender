@@ -137,6 +137,15 @@ body {
 }
 
 body {
+  /*
+  * 'Arial' is default font.
+  * 'Yu Gothic Medium' is for Windows, and 'YuGothic' is for Mac.
+  * However, Windows older than 8.1 and Mac older than Mavericks don't come bundled with Yu Gothic.
+  * 'Meiryo' and 'Hiragino Sans' are for such old Windows and Mac respectively.
+  * 'Hiragino Sans' is also for iOS.
+  * 'sans-serif' is for Android.
+  */
+  font-family: Arial, Meiryo, "Yu Gothic Medium", YuGothic, "Hiragino Sans", "Noto Sans", sans-serif;
   color: $main-text-color;
 }
 
@@ -193,7 +202,7 @@ figure {
   grid-template-columns: repeat(auto-fit, $authors-author-width);
 }
 
-.centerize {
+.authors-footnote {
   text-align: center;
 }
 
