@@ -1,8 +1,11 @@
-ARG BASE_IMAGE=nvidia/cuda:11.0-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cuda:11.0.3-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 ARG PROJECT_NAME=ascender
 ARG USER_NAME=challenger
+ARG GROUP_NAME=challengers
+ARG UID=1000
+ARG GID=1000
 ARG PYTHON_VERSION=3.8
 ARG APPLICATION_DIRECTORY=/home/${USER_NAME}/${PROJECT_NAME}
 
@@ -26,7 +29,8 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTH
     && pip3 install poetry
 
 # Add user. Without this, following process is executed as admin. 
-RUN useradd -ms /bin/sh ${USER_NAME}
+RUN groupadd -g ${GID} ${GROUP_NAME} \
+    && useradd -ms /bin/sh -u ${UID} -g ${GID} ${USER_NAME}
 USER ${USER_NAME}
 
 WORKDIR ${APPLICATION_DIRECTORY}
