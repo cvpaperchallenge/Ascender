@@ -48,6 +48,7 @@ $warning: $yellow;
 $danger: $red;
 $light: $gray-100;
 $dark: $gray-900;
+$main-text-color: $gray-900;
 
 // custom color
 $dark-inverse: #fff;
@@ -133,6 +134,10 @@ $alternative-background-color: #eee;
 html,
 body {
   margin: 0;
+}
+
+body {
+  color: $main-text-color;
 }
 
 figure {
