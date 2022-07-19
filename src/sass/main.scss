@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $-base-space: 1rem * 0.5;
 $space-half: $-base-space * 0.5;
 $space-1: $-base-space * 1;
@@ -53,6 +55,9 @@ $main-text-color: $gray-900;
 // custom color
 $dark-inverse: #fff;
 $alternative-background-color: #eee;
+$carousel-slider-dot-size: $space-1;
+$carousel-slider-dot-inactive-color: $gray-500;
+$carousel-slider-dot-active-color: $black;
 
 @mixin desktop {
   @media screen and (min-width: $break-point-mobile-desktop) {
@@ -106,29 +111,31 @@ $alternative-background-color: #eee;
   }
 }
 
-.dots {
-  display: flex;
-  padding: 10px 0;
-  justify-content: center;
-}
+.ascender-carousel-slider {
+  .dots {
+    display: flex;
+    padding: $carousel-slider-dot-size 0;
+    justify-content: center;
+  }
 
-.dot {
-  border: none;
-  width: 10px;
-  height: 10px;
-  background: #c5c5c5;
-  border-radius: 50%;
-  margin: 0 5px;
-  padding: 5px;
-  cursor: pointer;
-}
+  .dot {
+    border: none;
+    width: $carousel-slider-dot-size;
+    height: $carousel-slider-dot-size;
+    background: $carousel-slider-dot-inactive-color;
+    border-radius: 50%;
+    margin: 0 math.div($carousel-slider-dot-size, 2);
+    padding: math.div($carousel-slider-dot-size, 2);
+    cursor: pointer;
 
-.dot:focus {
-  outline: none;
-}
+    &:focus {
+      outline: none;
+    }
+  }
 
-.dot-active {
-  background: #000;
+  .dot-active {
+    background: $carousel-slider-dot-active-color;
+  }
 }
 
 html,
