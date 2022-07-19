@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "build": "node-sass src/sass/main.scss --output-style compressed --output build",
-    "watch": "node-sass src/sass/main.scss --output-style compressed --output build --watch",
+    "build": "sass src/sass/main.scss:build/main.css",
+    "watch": "sass --watch src/sass/main.scss:build/main.css",
     "lint": "prettier --check '**/*.{html,js}' && stylelint **/*.scss",
     "lint:fix": "prettier --write '**/*.{html,js}' && stylelint --fix **/*.scss"
   },
@@ -15,8 +15,8 @@
   "author": "cvpaper.challenge XCCV group",
   "license": "MIT",
   "devDependencies": {
-    "node-sass": "^7.0.1",
     "prettier": "^2.7.1",
+    "sass": "^1.53.0",
     "stylelint": "^14.9.1",
     "stylelint-config-standard": "^26.0.0",
     "stylelint-config-standard-scss": "^4.0.0",
