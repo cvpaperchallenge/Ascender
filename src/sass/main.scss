@@ -85,6 +85,14 @@ $carousel-slider-dot-active-color: $black;
   }
 }
 
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
 .dark-color-scheme {
   color: $dark-inverse;
   background-color: $dark;
