@@ -98,27 +98,6 @@ $carousel-slider-dot-active-color: $black;
   background-color: $dark;
 }
 
-.side-by-side {
-  display: flex;
-  gap: $space-3;
-
-  @include desktop {
-    align-items: center;
-
-    & > * * {
-      width: 100%;
-    }
-  }
-
-  @include mobile {
-    flex-direction: column;
-
-    & * {
-      width: 100%;
-    }
-  }
-}
-
 .ascender-carousel-slider {
   .dots {
     display: flex;
@@ -255,4 +234,32 @@ figure {
 
 a {
   text-decoration: none;
+}
+
+.side-by-side {
+  display: flex;
+  gap: $space-3;
+
+  &.even {
+    & > * {
+      flex-basis: 0;
+      flex-grow: 1;
+    }
+
+    @include desktop {
+      align-items: center;
+
+      & > * * {
+        width: 100%;
+      }
+    }
+
+    @include mobile {
+      flex-direction: column;
+
+      & * {
+        width: 100%;
+      }
+    }
+  }
 }
