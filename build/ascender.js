@@ -126,6 +126,6 @@ const runCarouselSlider = ({
 
 runCarouselSlider({
   element: '#ascender-carousel-slider',
-  autoSwitchMilliSeconds: 300000,
+  autoSwitchMilliSeconds: 10000,
   slidesPerViewDesktop: 1,
 });

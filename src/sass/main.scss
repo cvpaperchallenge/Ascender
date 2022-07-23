@@ -85,30 +85,18 @@ $carousel-slider-dot-active-color: $black;
   }
 }
 
-.dark-color-scheme {
-  color: $dark-inverse;
-  background-color: $dark;
+.full-width {
+  width: 100%;
+  object-fit: cover;
 }
 
-.side-by-side {
-  display: flex;
-  gap: $space-3;
+.top {
+  vertical-align: top;
+}
 
-  @include desktop {
-    align-items: center;
-
-    & > * * {
-      width: 100%;
-    }
-  }
-
-  @include mobile {
-    flex-direction: column;
-
-    & * {
-      width: 100%;
-    }
-  }
+.dark-color-scheme {
+  color: $white;
+  background-color: $dark;
 }
 
 .ascender-carousel-slider {
@@ -173,7 +161,7 @@ figure {
 }
 
 .section {
-  padding: $space-12 $space-2;
+  padding: $space-5 $space-2;
   margin-bottom: $space-5;
 
   &:first-child {
@@ -186,6 +174,10 @@ figure {
 }
 
 .title {
+  text-align: center;
+}
+
+.sub-title {
   text-align: center;
 }
 
@@ -247,4 +239,37 @@ figure {
 
 a {
   text-decoration: none;
+  color: $primary;
+}
+
+p {
+  line-height: 1.5;
+}
+
+.side-by-side {
+  display: flex;
+  gap: $space-3;
+
+  &.even {
+    & > * {
+      flex-basis: 0;
+      flex-grow: 1;
+    }
+
+    @include desktop {
+      align-items: center;
+
+      & > * * {
+        width: 100%;
+      }
+    }
+
+    @include mobile {
+      flex-direction: column;
+
+      & * {
+        width: 100%;
+      }
+    }
+  }
 }
