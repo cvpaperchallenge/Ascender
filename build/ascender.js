@@ -13,6 +13,10 @@ const runCarouselSlider = ({
     let timeout;
     let mouseOver = false;
 
+    function removeElement(element) {
+      element.parentNode.removeChild(element);
+    }
+
     function markup(remove) {
       wrapperMarkup(remove);
       dotMarkup(remove);
@@ -30,6 +34,7 @@ const runCarouselSlider = ({
         var parent = wrapper.parentNode;
         while (wrapper.firstChild)
           parent.insertBefore(wrapper.firstChild, wrapper);
+        removeElement(wrapper);
         return;
       }
       wrapper = createDiv('navigation-wrapper');
@@ -39,6 +44,7 @@ const runCarouselSlider = ({
 
     function dotMarkup(remove) {
       if (remove) {
+        removeElement(dots);
         return;
       }
       dots = createDiv('dots');
