@@ -63,6 +63,7 @@ $global-footer-color: $dark-inverse;
 $global-footer-padding: $space-3;
 $global-footer-gap: $space-3;
 $global-footer-brand-logo-desktop-width: 400px;
+$brand-logo-size: 96px;
 
 @mixin desktop {
   @media screen and (min-width: $break-point-mobile-desktop) {
@@ -286,8 +287,9 @@ p {
 
 .brand-logo-and-title {
   & .brand-logo {
-    height: 96px;
-    width: 96px;
+    height: $brand-logo-size;
+    width: $brand-logo-size;
+    flex-shrink: 0;
   }
 
   & > div {
@@ -296,6 +298,19 @@ p {
 
   @include mobile {
     flex-direction: column;
+  }
+
+  .logo-place-holder {
+    @include desktop {
+      height: $brand-logo-size;
+      width: $brand-logo-size;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+
+    @include mobile {
+      display: none;
+    }
   }
 }
 
