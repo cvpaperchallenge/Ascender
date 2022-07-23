@@ -1,0 +1,5 @@
+{
+  "icons": [
+      { "src": "https://xccv-tmp.s3.ap-northeast-1.amazonaws.com/neddf/touch-icon-192.png", "type": "image/png", "sizes": "192x192" }
+  ]
+}
