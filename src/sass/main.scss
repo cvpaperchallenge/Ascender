@@ -87,14 +87,15 @@ $carousel-slider-dot-active-color: $black;
 
 .full-width {
   width: 100%;
+  object-fit: cover;
 }
 
-.half-width {
-  width: 50%;
+.top {
+  vertical-align: top;
 }
 
 .dark-color-scheme {
-  color: $dark-inverse;
+  color: $white;
   background-color: $dark;
 }
 
@@ -160,7 +161,7 @@ figure {
 }
 
 .section {
-  padding: $space-12 $space-2;
+  padding: $space-5 $space-2;
   margin-bottom: $space-5;
 
   &:first-child {
@@ -173,6 +174,10 @@ figure {
 }
 
 .title {
+  text-align: center;
+}
+
+.sub-title {
   text-align: center;
 }
 
@@ -234,6 +239,11 @@ figure {
 
 a {
   text-decoration: none;
+  color: $primary;
+}
+
+p {
+  line-height: 1.5;
 }
 
 .side-by-side {
