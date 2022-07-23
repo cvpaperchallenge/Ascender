@@ -90,10 +90,6 @@ $carousel-slider-dot-active-color: $black;
   object-fit: cover;
 }
 
-.top {
-  vertical-align: top;
-}
-
 .dark-color-scheme {
   color: $white;
   background-color: $dark;
@@ -249,6 +245,7 @@ p {
 .side-by-side {
   display: flex;
   gap: $space-3;
+  align-items: center;
 
   &.even {
     & > * {
@@ -257,8 +254,6 @@ p {
     }
 
     @include desktop {
-      align-items: center;
-
       & > * * {
         width: 100%;
       }
@@ -272,4 +267,14 @@ p {
       }
     }
   }
+
+  &.top {
+    @include desktop {
+      align-items: flex-start;
+    }
+  }
+}
+
+.force-margin-top-0 {
+  margin-top: 0 !important;
 }
