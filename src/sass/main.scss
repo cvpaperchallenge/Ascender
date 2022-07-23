@@ -58,6 +58,11 @@ $alternative-background-color: #eee;
 $carousel-slider-dot-size: $space-1;
 $carousel-slider-dot-inactive-color: $gray-500;
 $carousel-slider-dot-active-color: $black;
+$global-footer-background-color: $dark;
+$global-footer-color: $dark-inverse;
+$global-footer-padding: $space-3;
+$global-footer-gap: $space-3;
+$global-footer-brand-logo-desktop-width: 400px;
 
 @mixin desktop {
   @media screen and (min-width: $break-point-mobile-desktop) {
@@ -277,4 +282,53 @@ p {
 
 .force-margin-top-0 {
   margin-top: 0 !important;
+}
+
+.brand-logo-and-title {
+  & .brand-logo {
+    height: 96px;
+    width: 96px;
+  }
+
+  & > div {
+    flex-grow: 1;
+  }
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.global-footer {
+  background-color: $global-footer-background-color;
+  color: $global-footer-color;
+  padding: $global-footer-padding;
+
+  .footer-brand-logo {
+    @include desktop {
+      width: $global-footer-brand-logo-desktop-width;
+    }
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+
+  .footer-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $global-footer-gap;
+
+    & * {
+      margin: 0;
+    }
+
+    @include mobile {
+      align-items: center;
+    }
+  }
+
+  .copy-right {
+    text-align: center;
+  }
 }
