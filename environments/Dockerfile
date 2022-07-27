@@ -34,5 +34,3 @@ RUN groupadd -g ${GID} ${GROUP_NAME} \
 USER ${USER_NAME}
 
 WORKDIR ${APPLICATION_DIRECTORY}
-# Create virtual environments inside of project.
-RUN poetry config virtualenvs.in-project true

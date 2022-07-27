@@ -21,11 +21,11 @@ Please check [the slide format resources about Ascender (Japanese)](https://cvpa
 ## Project Organization
 
 ```
-    ├── .github/           <- Settings for github.
+    ├── .github/           <- Settings for GitHub.
     │
     ├── data/              <- Datasets.
     │
-    ├── environmtns/       <- Provision depends on environments.
+    ├── environments/       <- Provision depends on environments.
     │
     ├── models/            <- Pretrained and serialized models.
     │
@@ -37,12 +37,14 @@ Please check [the slide format resources about Ascender (Japanese)](https://cvpa
     │
     ├── tests/             <- Test codes.
     │
+    ├── .flake8            <- Setting file for Flake8.
     ├── .dockerignore
     ├── .gitignore
     ├── LICENSE
     ├── Makefile           <- Makefile used as task runner. 
-    ├── poetry.lock        <- Lock file. DON'T edit this file manually.  
-    ├── pyproject.toml     <- Setting file.
+    ├── poetry.lock        <- Lock file. DON'T edit this file manually.
+    ├── poetry.toml        <- Setting file for Poetry.
+    ├── pyproject.toml     <- Setting file for Project. (Poetry, Black, isort, Mypy)
     └── README.md          <- The top-level README for developers.
 
 ```
@@ -143,6 +145,26 @@ $ sudo dokcer compose stop
 ```
 
 ## FAQ
+
+### Use Ascender without Docker
+
+We recommend using Ascender with Docker as described above. However, you might not be able to install Docker in your development environment due to permission issues or etc.
+
+In such cases, Ascender can be used without Docker. To do that, please install Poetry in your computer, and follow the steps describing in "Start development" section with ignoring the steps related to Docker.
+
+```bash
+# Install Poetry
+$ pip3 install poetry
+
+# Clone repo
+$ git clone git@github.com:cvpaperchallenge/<YOUR_REPO_NAME>.git
+$ cd <YOUR_REPO_NAME>
+
+# Create virtual environment and install dependent packages by Poetry
+$ poetry install
+```
+
+NOTE: CI job (GitHub action workflow) of Ascender is using Dockerfile. Therefore, using Ascender without Docker might raise error at CI job. In that case, please modify the Dockerfile appropriately or delete the CI job (`.github/workflows/lint-and-test.yaml`).
 
 ### Permission error is raised when execute `poetry install`.
 
