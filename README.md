@@ -163,3 +163,17 @@ $ id -g $USER  # check GID
 ```
 
 In Ascender, default value of both is `1000`. If UID or GID of your local PC is not `1000`, you need to modify the value of `UID` or `GID` inside of `docker-compose.yaml` to align your local PC (please edit their values from `1000`).
+
+### Compatibility issue between PyTorch and Poetry
+
+Currently, there is a compatibility issue between PyTorch and Poetry. This issue is being worked on by the Poetry community and is expected to be resolved in 1.2.0. (You can check pre-release of 1.2.0 from [here](https://github.com/python-poetry/poetry/releases/tag/1.2.0b3).) 
+
+We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release. In the meantime, please consider using the workaround described in [this issue](https://github.com/python-poetry/poetry/issues/4231).
+
+**Some related GitHub issues**
+- https://github.com/python-poetry/poetry/issues/2339
+- https://github.com/python-poetry/poetry/issues/2543
+- https://github.com/python-poetry/poetry/issues/2613
+- https://github.com/python-poetry/poetry/issues/3855
+- https://github.com/python-poetry/poetry/issues/4231
+- https://github.com/python-poetry/poetry/issues/4704
