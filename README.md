@@ -164,7 +164,7 @@ $ cd <YOUR_REPO_NAME>
 $ poetry install
 ```
 
-NOTE: CI job (GitHub action workflow) of Ascender is using Dockerfile. Therefore, using Ascender without Docker might raise error at CI job. In that case, please modify the Dockerfile appropriately or delete the CI job (`.github/workflows/lint-and-test.yaml`).
+NOTE: CI job (GitHub Actions workflow) of Ascender is using Dockerfile. Therefore, using Ascender without Docker might raise error at CI job. In that case, please modify the Dockerfile appropriately or delete the CI job (`.github/workflows/lint-and-test.yaml`).
 
 ### Permission error is raised when execute `poetry install`.
 
@@ -199,3 +199,7 @@ We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release.
 - https://github.com/python-poetry/poetry/issues/3855
 - https://github.com/python-poetry/poetry/issues/4231
 - https://github.com/python-poetry/poetry/issues/4704
+
+### Change the Python version to run CI jobs
+
+By default, CI job (GitHub Actions workflow) of Ascender is run against Python 3.8 and 3.9. If you want to change the target Python version, please modify [the matrix part of `.github/workflows/lint-and-test.yaml`](https://github.com/cvpaperchallenge/Ascender/blob/master/.github/workflows/lint-and-test.yaml#L18).
