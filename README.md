@@ -157,7 +157,7 @@ In such cases, Ascender can be used without Docker. To do that, please install P
 $ pip3 install poetry
 
 # Clone repo
-$ git clone git@github.com:cvpaperchallenge/<YOUR_REPO_NAME>.git
+$ git clone git@github.com:<YOUR_USER_NAME>/<YOUR_REPO_NAME>.git
 $ cd <YOUR_REPO_NAME>
 
 # Create virtual environment and install dependent packages by Poetry
