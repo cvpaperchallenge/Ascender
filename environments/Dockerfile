@@ -26,7 +26,10 @@ RUN apt update && apt install --no-install-recommends -y \
 # For detail, please check following link https://unix.stackexchange.com/questions/410579/change-the-python3-default-version-in-ubuntu
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 \
     && update-alternatives --set python3 /usr/bin/python${PYTHON_VERSION} \
-    && pip3 install poetry
+    # `requests` needs to be upgraded to avoid RequestsDependencyWarning
+    # ref: https://stackoverflow.com/questions/56155627/requestsdependencywarning-urllib3-1-25-2-or-chardet-3-0-4-doesnt-match-a-s
+    && python3 -m pip install --upgrade pip setuptools requests \
+    && python3 -m pip install --pre poetry
 
 # Add user. Without this, following process is executed as admin. 
 RUN groupadd -g ${GID} ${GROUP_NAME} \
