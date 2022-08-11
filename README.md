@@ -21,11 +21,11 @@ Please check [the slide format resources about Ascender (Japanese)](https://cvpa
 ## Project Organization
 
 ```
-    ├── .github/           <- Settings for github.
+    ├── .github/           <- Settings for GitHub.
     │
     ├── data/              <- Datasets.
     │
-    ├── environmtns/       <- Provision depends on environments.
+    ├── environments/       <- Provision depends on environments.
     │
     ├── models/            <- Pretrained and serialized models.
     │
@@ -37,12 +37,14 @@ Please check [the slide format resources about Ascender (Japanese)](https://cvpa
     │
     ├── tests/             <- Test codes.
     │
+    ├── .flake8            <- Setting file for Flake8.
     ├── .dockerignore
     ├── .gitignore
     ├── LICENSE
     ├── Makefile           <- Makefile used as task runner. 
-    ├── poetry.lock        <- Lock file. DON'T edit this file manually.  
-    ├── pyproject.toml     <- Setting file.
+    ├── poetry.lock        <- Lock file. DON'T edit this file manually.
+    ├── poetry.toml        <- Setting file for Poetry.
+    ├── pyproject.toml     <- Setting file for Project. (Poetry, Black, isort, Mypy)
     └── README.md          <- The top-level README for developers.
 
 ```
@@ -144,6 +146,26 @@ $ sudo dokcer compose stop
 
 ## FAQ
 
+### Use Ascender without Docker
+
+We recommend using Ascender with Docker as described above. However, you might not be able to install Docker in your development environment due to permission issues or etc.
+
+In such cases, Ascender can be used without Docker. To do that, please install Poetry in your computer, and follow the steps describing in "Start development" section with ignoring the steps related to Docker.
+
+```bash
+# Install Poetry
+$ pip3 install poetry
+
+# Clone repo
+$ git clone git@github.com:<YOUR_USER_NAME>/<YOUR_REPO_NAME>.git
+$ cd <YOUR_REPO_NAME>
+
+# Create virtual environment and install dependent packages by Poetry
+$ poetry install
+```
+
+NOTE: CI job (GitHub Actions workflow) of Ascender is using Dockerfile. Therefore, using Ascender without Docker might raise error at CI job. In that case, please modify the Dockerfile appropriately or delete the CI job (`.github/workflows/lint-and-test.yaml`).
+
 ### Permission error is raised when execute `poetry install`.
 
 Sometime `poetry install` might rise permission error like following:
@@ -163,3 +185,21 @@ $ id -g $USER  # check GID
 ```
 
 In Ascender, default value of both is `1000`. If UID or GID of your local PC is not `1000`, you need to modify the value of `UID` or `GID` inside of `docker-compose.yaml` to align your local PC (please edit their values from `1000`). Or if environmental variables `HOST_UID` and `HOST_GID` is defined at host PC, Ascender uses these values.
+
+### Compatibility issue between PyTorch and Poetry
+
+Currently, there is a compatibility issue between PyTorch and Poetry. This issue is being worked on by the Poetry community and is expected to be resolved in 1.2.0. (You can check pre-release of 1.2.0 from [here](https://github.com/python-poetry/poetry/releases/tag/1.2.0b3).) 
+
+We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release. In the meantime, please consider using the workaround described in [this issue](https://github.com/python-poetry/poetry/issues/4231).
+
+**Some related GitHub issues**
+- https://github.com/python-poetry/poetry/issues/2339
+- https://github.com/python-poetry/poetry/issues/2543
+- https://github.com/python-poetry/poetry/issues/2613
+- https://github.com/python-poetry/poetry/issues/3855
+- https://github.com/python-poetry/poetry/issues/4231
+- https://github.com/python-poetry/poetry/issues/4704
+
+### Change the Python version to run CI jobs
+
+By default, CI job (GitHub Actions workflow) of Ascender is run against Python 3.8 and 3.9. If you want to change the target Python version, please modify [the matrix part of `.github/workflows/lint-and-test.yaml`](https://github.com/cvpaperchallenge/Ascender/blob/master/.github/workflows/lint-and-test.yaml#L18).
