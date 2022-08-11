@@ -188,6 +188,8 @@ In Ascender, default value of both is `1000`. If UID or GID of your local PC is 
 
 ### Compatibility issue between PyTorch and Poetry
 
+NOTE: Now poetry 1.2 is used in Ascender. So this issue is expected to be solved.
+
 Currently, there is a compatibility issue between PyTorch and Poetry. This issue is being worked on by the Poetry community and is expected to be resolved in 1.2.0. (You can check pre-release of 1.2.0 from [here](https://github.com/python-poetry/poetry/releases/tag/1.2.0b3).) 
 
 We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release. In the meantime, please consider using the workaround described in [this issue](https://github.com/python-poetry/poetry/issues/4231).
