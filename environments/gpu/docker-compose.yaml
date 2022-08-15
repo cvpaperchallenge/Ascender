@@ -9,8 +9,8 @@ services:
       args:
         - BASE_IMAGE=nvidia/cuda:11.0.3-devel-ubuntu20.04
         - PYTHON_VERSION=3.8
-        - UID=1000
-        - GID=1000
+        - UID=${HOST_UID-1000}
+        - GID=${HOST_GID-1000}
       context: ../../
       dockerfile: environments/Dockerfile
     tty: true
