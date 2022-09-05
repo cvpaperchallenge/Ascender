@@ -29,7 +29,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTH
     # `requests` needs to be upgraded to avoid RequestsDependencyWarning
     # ref: https://stackoverflow.com/questions/56155627/requestsdependencywarning-urllib3-1-25-2-or-chardet-3-0-4-doesnt-match-a-s
     && python3 -m pip install --upgrade pip setuptools requests \
-    && python3 -m pip install --pre poetry
+    && python3 -m pip install poetry
 
 # Add user. Without this, following process is executed as admin. 
 RUN groupadd -g ${GID} ${GROUP_NAME} \
