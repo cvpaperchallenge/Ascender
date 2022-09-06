@@ -209,3 +209,7 @@ We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release.
 ### Change the Python version to run CI jobs
 
 By default, CI job (GitHub Actions workflow) of Ascender is run against Python 3.8 and 3.9. If you want to change the target Python version, please modify [the matrix part of `.github/workflows/lint-and-test.yaml`](https://github.com/cvpaperchallenge/Ascender/blob/master/.github/workflows/lint-and-test.yaml#L18).
+
+### The change to Dockerfile has not been reflected correctly on the image build
+
+When you run `sudo docker compose up --build` after adding some change on the Dockerfile, you may find no changes has been made on the image built.  This may be because the `docker build` command has used the build cache.  When that happens, try using `sudo docker compose up --build --force-recreate`, instead.
