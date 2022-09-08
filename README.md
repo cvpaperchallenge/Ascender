@@ -104,7 +104,7 @@ $ sudo apt install -y nvidia-docker2
 $ sudo systemctl restart docker
 ```
 
-If `sudo docker run --rm --gpus all nvidia/cuda:11.3-base nvidia-smi` works, installation succeeded.
+If `sudo docker run --rm --gpus all nvidia/cuda:11.0.3-base nvidia-smi` works, installation succeeded.
 
 ## Quick start
 
