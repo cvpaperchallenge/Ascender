@@ -210,6 +210,13 @@ We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release.
 
 By default, CI job (GitHub Actions workflow) of Ascender is run against Python 3.8 and 3.9. If you want to change the target Python version, please modify [the matrix part of `.github/workflows/lint-and-test.yaml`](https://github.com/cvpaperchallenge/Ascender/blob/master/.github/workflows/lint-and-test.yaml#L18).
 
-### The change to Dockerfile has not been reflected correctly on the image build
+### When changes to the Dockerfile are not reflected correctly on the image build
 
-When you run `sudo docker compose up --build` after adding some change on the Dockerfile, you may find no changes has been made on the image built.  This may be because the `docker build` command has used the build cache.  When that happens, try using `sudo docker compose up --build --force-recreate`, instead.
+Even when you run `sudo docker compose up --build` after adding a modification to the Dockerfile, you may find no changes have been made to the image built.  The potential reasons for this include:
+
+1. docker using build cache to build an image
+2. docker failing to recreate a docker container
+
+The `docker compose up` command starts and attaches containers for a service, re-building a docker image if the `--build` option is set.  However, docker by default uses cache if it exists when building an image, which results in some modifications to the Dockerfile not being reflected. If this is suspected, you must explicitly tell docker to build without using the cache by running `sudo docker compose build --no-cache`, then run `sudo docker compose up` (the solution for the 1st issue).
+
+Apart from this problem, docker sometimes fails to restart containers even when you add some changes to the service's configuration or image.  So, if the issue still persists with the above approach, consider using `sudo docker compose up --force-recreate` instead of `sudo docker compose up` to force the container to be recreated (the solution for the 2nd issue).
