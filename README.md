@@ -212,11 +212,16 @@ By default, CI job (GitHub Actions workflow) of Ascender is run against Python 3
 
 ### When changes to the Dockerfile are not reflected correctly on the image build
 
-Even when you run `sudo docker compose up --build` after adding a modification to the Dockerfile, you may find no changes have been made to the image built.  The potential reasons for this include:
+When you run `sudo docker compose up` after adding some modifications to the Dockerfile, you may find no changes have been made to the image built. In that case, please try following commands:
 
-1. docker using build cache to build an image
-2. docker failing to recreate a docker container
+```shell
+$ sudo docker compose build --no-cache
+$ sudo docker compose up --force-recreate
+```
 
-The `docker compose up` command starts and attaches containers for a service, re-building a docker image if the `--build` option is set.  However, docker by default uses cache if it exists when building an image, which results in some modifications to the Dockerfile not being reflected. If this is suspected, you must explicitly tell docker to build without using the cache by running `sudo docker compose build --no-cache`, then run `sudo docker compose up` (the solution for the 1st issue).
+When changes to the Dockerfile are not reflected, potential reasons are:
 
-Apart from this problem, docker sometimes fails to restart containers even when you add some changes to the service's configuration or image.  So, if the issue still persists with the above approach, consider using `sudo docker compose up --force-recreate` instead of `sudo docker compose up` to force the container to be recreated (the solution for the 2nd issue).
+1. docker uses cache to build an image
+1. docker doesn't recreate a container
+
+`sudo docker compose build --no-cache` command build docker image with no cache (the solution for the 1st case). And `sudo docker compose up --force-recreate` command recreate and start containers (the solution for the 2nd case).
