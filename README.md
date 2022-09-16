@@ -104,7 +104,7 @@ $ sudo apt install -y nvidia-docker2
 $ sudo systemctl restart docker
 ```
 
-If `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` works, installation succeeded.
+If `sudo docker run --rm --gpus all nvidia/cuda:11.0.3-base nvidia-smi` works, installation succeeded.
 
 ## Quick start
 
@@ -209,3 +209,19 @@ We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release.
 ### Change the Python version to run CI jobs
 
 By default, CI job (GitHub Actions workflow) of Ascender is run against Python 3.8 and 3.9. If you want to change the target Python version, please modify [the matrix part of `.github/workflows/lint-and-test.yaml`](https://github.com/cvpaperchallenge/Ascender/blob/master/.github/workflows/lint-and-test.yaml#L18).
+
+### When changes to the Dockerfile are not reflected correctly on the image build
+
+When you run `sudo docker compose up` after adding some modifications to the Dockerfile, you may find no changes have been made to the image built. In that case, please try following commands:
+
+```shell
+$ sudo docker compose build --no-cache
+$ sudo docker compose up --force-recreate
+```
+
+When changes to the Dockerfile are not reflected, potential reasons are:
+
+1. docker uses cache to build an image
+1. docker doesn't recreate a container
+
+`sudo docker compose build --no-cache` command build docker image with no cache (the solution for the 1st case). And `sudo docker compose up --force-recreate` command recreate and start containers (the solution for the 2nd case).
