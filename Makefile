@@ -18,6 +18,14 @@ isort-check:
 isort:
 	poetry run isort src tests
 
+.PHONY: mdformat
+mdformat:
+	poetry run mdformat .
+
+.PHONY: mdformat-check
+mdformat-check:
+	poetry run mdformat --check .
+
 .PHONY: mypy
 mypy:
 	poetry run mypy src
@@ -30,11 +38,13 @@ test:
 format:
 	$(MAKE) black
 	$(MAKE) isort
+	$(MAKE) mdformat
 
 .PHONY: lint
 lint:
 	$(MAKE) black-check
 	$(MAKE) isort-check
+	$(MAKE) mdformat-check
 	$(MAKE) flake8
 	$(MAKE) mypy
 
@@ -43,5 +53,6 @@ test-all:
 	$(MAKE) black
 	$(MAKE) flake8
 	$(MAKE) isort
+	$(MAKE) mdformat
 	$(MAKE) mypy
 	$(MAKE) test
