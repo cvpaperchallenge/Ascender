@@ -4,7 +4,6 @@ about: An issue template for development
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 ## Why

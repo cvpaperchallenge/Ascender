@@ -12,7 +12,6 @@
 
 Ascender (Accelerator of SCiENtific DEvelopment and Research) is a [GitHub repository template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository) for research projects using Python as a developing language. The following features are pre-implemented to accelerate your development:
 
-
 - **Container**: Use of [Docker](https://www.docker.com/) reduces development environment dependencies and improves code portability.
 - **Virtual environment / package management**: Package management using [Poetry](https://python-poetry.org/) improves reproducibility of the same environment.
 - **Coding style**: Automatic code style formatting using [Black](https://github.com/psf/black), [Flake8](https://github.com/pycqa/flake8), and [isort](https://github.com/PyCQA/isort).
@@ -67,7 +66,6 @@ Here, we show example prerequisites installation codes for Ubuntu. If prerequisi
 
 - Docker and Docker Compose: [Install Docker Engine](https://docs.docker.com/engine/install/)
 - NVIDIA Container Toolkit (nvidia-docker2): [Installation Guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
-
 
 ### Install Docker and Docker Compose
 
@@ -199,6 +197,7 @@ Currently, there is a compatibility issue between PyTorch and Poetry. This issue
 We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release. In the meantime, please consider using the workaround described in [this issue](https://github.com/python-poetry/poetry/issues/4231).
 
 **Some related GitHub issues**
+
 - https://github.com/python-poetry/poetry/issues/2339
 - https://github.com/python-poetry/poetry/issues/2543
 - https://github.com/python-poetry/poetry/issues/2613
