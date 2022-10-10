@@ -73,8 +73,8 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}
           cache-to: type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }},mode=max
           build-args:
-          - PYTHON_VERSION=${{ matrix.python-version }}
-          - RUN_POETRY_INSTALL_AT_BUILD_TIME=true
+            - PYTHON_VERSION=${{ matrix.python-version }}
+            - RUN_POETRY_INSTALL_AT_BUILD_TIME=true
 
       - name: Start docker container
         run: docker-compose up -d core
