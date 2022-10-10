@@ -8,11 +8,13 @@ ARG UID=1000
 ARG GID=1000
 ARG PYTHON_VERSION=3.8
 ARG APPLICATION_DIRECTORY=/home/${USER_NAME}/${PROJECT_NAME}
+ARG RUN_POETRY_INSTALL_AT_BUILD_TIME="false"
 
 ENV DEBIAN_FRONTEND="noninteractive" \
     LC_ALL="C.UTF-8" \
     LANG="C.UTF-8" \
-    PYTHONPATH=${APPLICATION_DIRECTORY}
+    PYTHONPATH=${APPLICATION_DIRECTORY} \
+    RUN_POETRY_INSTALL_AT_BUILD_TIME=${RUN_POETRY_INSTALL_AT_BUILD_TIME}
 
 # Following is needed to install python 3.7
 RUN apt update && apt install --no-install-recommends -y software-properties-common 
@@ -37,3 +39,6 @@ RUN groupadd -g ${GID} ${GROUP_NAME} \
 USER ${USER_NAME}
 
 WORKDIR ${APPLICATION_DIRECTORY}
+
+COPY pyproject.toml poetry.lock .
+RUN test ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true" && poetry install || echo "skip to run poetry install."

@@ -54,6 +54,8 @@ jobs:
         run: |
           docker buildx bake \
           --builder="${{ steps.buildx.outputs.name }}" \
+          --set="*.RUN_POETRY_INSTALL_AT_BUILD_TIME"="true" \
+          --set="*.PYTHON_VERSION"="${{ matrix.python-version }}" \
           --set="*.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}" \
           --set="*.cache-to=type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }}" \
           -f docker-compose.yaml
