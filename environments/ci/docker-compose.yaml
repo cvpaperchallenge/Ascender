@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   core:
-    image: localhost:5000/ascender-core:${DOCKER_IMAGE_TAG_CI}
+    image: localhost:5000/core:${DOCKER_IMAGE_TAG_CI}
     build:
       args:
         - BASE_IMAGE=ubuntu:20.04
