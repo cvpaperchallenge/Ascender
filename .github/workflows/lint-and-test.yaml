@@ -82,6 +82,10 @@ jobs:
       #   run: docker-compose up -d core
       #   working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
+      - name: ls image -a
+        run: docker image ls -a
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
       - name: Start docker container
         run: docker-compose start
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
