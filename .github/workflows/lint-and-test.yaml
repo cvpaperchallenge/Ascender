@@ -6,6 +6,7 @@ env:
   DOCKER_COMPOSE_DIRECTORY: environments/cpu
   COMPOSE_DOCKER_CLI_BUILD: 1
   DOCKER_BUILDKIT: 1
+  RUN_POETRY_INSTALL_AT_BUILD_TIME: true
 
 jobs:
   lint-and-test:
@@ -51,30 +52,30 @@ jobs:
       #   run: docker-compose build --parallel --build-arg PYTHON_VERSION=${{ matrix.python-version }} core
       #   working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-      # - name: Build docker image
-      #   run: |
-      #     docker buildx bake \
-      #     --builder="${{ steps.buildx.outputs.name }}" \
-      #     --set="*.args.RUN_POETRY_INSTALL_AT_BUILD_TIME=true" \
-      #     --set="*.args.PYTHON_VERSION=${{ matrix.python-version }}" \
-      #     --set="*.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}" \
-      #     --set="*.cache-to=type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }}" \
-      #     -f docker-compose.yaml
-      #   working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
-
       - name: Build docker image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ${{ env.DOCKER_FILE_DIRECTORY }}/Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
-          push: false
-          tags: ascender:${{ github.sha }}
-          cache-from: type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}
-          cache-to: type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }},mode=max
-          build-args: |
-            PYTHON_VERSION=${{ matrix.python-version }}
-            RUN_POETRY_INSTALL_AT_BUILD_TIME=true
+        run: |
+          docker buildx bake \
+          --builder="${{ steps.buildx.outputs.name }}" \
+          --set="core.args.PYTHON_VERSION=${{ matrix.python-version }}" \
+          --set="core.args.RUN_POETRY_INSTALL_AT_BUILD_TIME=${{ env.RUN_POETRY_INSTALL_AT_BUILD_TIME }}" \
+          --set="*.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}" \
+          --set="*.cache-to=type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }}" \
+          -f docker-compose.yaml
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
+      # - name: Build docker image
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: .
+      #     file: ${{ env.DOCKER_FILE_DIRECTORY }}/Dockerfile
+      #     builder: ${{ steps.buildx.outputs.name }}
+      #     push: false
+      #     tags: ascender:${{ github.sha }}
+      #     cache-from: type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}
+      #     cache-to: type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }},mode=max
+      #     build-args: |
+      #       PYTHON_VERSION=${{ matrix.python-version }}
+      #       RUN_POETRY_INSTALL_AT_BUILD_TIME=true
 
       - name: Start docker container
         run: docker-compose up -d core
