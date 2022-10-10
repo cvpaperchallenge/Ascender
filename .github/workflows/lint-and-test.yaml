@@ -60,6 +60,7 @@ jobs:
           --set="core.args.RUN_POETRY_INSTALL_AT_BUILD_TIME=${{ env.RUN_POETRY_INSTALL_AT_BUILD_TIME }}" \
           --set="*.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}" \
           --set="*.cache-to=type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }}" \
+          --load \
           -f docker-compose.yaml
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
