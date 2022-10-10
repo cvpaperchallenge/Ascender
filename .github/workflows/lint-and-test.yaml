@@ -3,10 +3,10 @@ on: [pull_request]
 
 env:
   DOCKER_FILE_DIRECTORY: environments
-  DOCKER_COMPOSE_DIRECTORY: environments/cpu
+  DOCKER_COMPOSE_DIRECTORY: environments/ci
   COMPOSE_DOCKER_CLI_BUILD: 1
   DOCKER_BUILDKIT: 1
-  RUN_POETRY_INSTALL_AT_BUILD_TIME: true
+  # RUN_POETRY_INSTALL_AT_BUILD_TIME: true
 
 jobs:
   lint-and-test:
@@ -34,10 +34,25 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache/${{ matrix.python-version }}
-          key: ${{ runner.os }}-buildx-${{ github.ref }}-${{ github.sha }}
+          key: buildx-${{ github.ref }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-buildx-${{ github.ref }}
-            ${{ runner.os }}-buildx-
+            buildx-${{ github.ref }}
+            buildx-
+
+      - name: Cache Docker registry
+        uses: actions/cache@v3
+        with:
+          path: /tmp/docker-registry/${{ matrix.python-version }}
+          key: docker-registry-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            docker-registry-${{ github.ref }}
+            docker-registry-
+
+      - name: Boot-up local Docker registry
+        run: docker run -d -p 5000:5000 --restart=always --name registry -v /tmp/docker-registry:/var/lib/registry registry:2
+      
+      - name: Wait for Docker registry
+        run: npx wait-on tcp:5000
 
       # - name: Build and push
       #   uses: docker/build-push-action@v3
@@ -52,16 +67,23 @@ jobs:
       #   run: docker-compose build --parallel --build-arg PYTHON_VERSION=${{ matrix.python-version }} core
       #   working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
+      - name: Generate Docker image tag
+        id: generate_docker_image_tag
+        run: |
+            SHA=${{ github.sha }}
+            TAG=$(TZ=UTC-9 date '+%Y%m')-${SHA:0:7}
+            echo "DOCKER_IMAGE_TAG_CI=$TAG" >> $GITHUB_ENV
+            echo TAG $TAG
+            echo "::set-output name=docker_image_tag_ci::$TAG"
+
       - name: Build docker image
         run: |
           docker buildx bake \
           --builder="${{ steps.buildx.outputs.name }}" \
           --set="core.args.PYTHON_VERSION=${{ matrix.python-version }}" \
-          --set="core.args.RUN_POETRY_INSTALL_AT_BUILD_TIME=${{ env.RUN_POETRY_INSTALL_AT_BUILD_TIME }}" \
           --set="*.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}" \
           --set="*.cache-to=type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }}" \
-          --set="core.tags=core:${{ matrix.python-version }}-${{ github.sha }}" \
-          --load \
+          --push \
           -f docker-compose.yaml
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
@@ -82,6 +104,14 @@ jobs:
       # - name: Start docker container
       #   run: docker-compose up -d core
       #   working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
+      - name: ls image -a
+        run: docker image ls -a
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
+      - name: Docker Compose Pull
+        run: docker compose pull
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: ls image -a
         run: docker image ls -a
