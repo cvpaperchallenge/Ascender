@@ -3,6 +3,10 @@
 ![python versions](https://img.shields.io/badge/python-3.8%20%7C%203.9-blue)
 [![tests](https://github.com/cvpaperchallenge/Ascender/actions/workflows/lint-and-test.yaml/badge.svg)](https://github.com/cvpaperchallenge/Ascender/actions/workflows/lint-and-test.yaml)
 [![MIT License](https://img.shields.io/github/license/cvpaperchallenge/Ascender?color=green)](LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Code style: flake8](https://img.shields.io/badge/code%20style-flake8-black)](https://github.com/PyCQA/flake8)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Typing: mypy](https://img.shields.io/badge/typing-mypy-blue)](https://github.com/python/mypy)
 
 ## What is Ascender?
 
@@ -41,7 +45,7 @@ Please check [the slide format resources about Ascender (Japanese)](https://cvpa
     ├── .dockerignore
     ├── .gitignore
     ├── LICENSE
-    ├── Makefile           <- Makefile used as task runner. 
+    ├── Makefile           <- Makefile used as task runner.
     ├── poetry.lock        <- Lock file. DON'T edit this file manually.
     ├── poetry.toml        <- Setting file for Poetry.
     ├── pyproject.toml     <- Setting file for Project. (Poetry, Black, isort, Mypy)
@@ -51,7 +55,7 @@ Please check [the slide format resources about Ascender (Japanese)](https://cvpa
 
 ## Prerequisites
 
-- [Docker](https://www.docker.com/) 
+- [Docker](https://www.docker.com/)
 - [Docker Compose](https://github.com/docker/compose)
 - (Optional) [NVIDIA Container Toolkit (nvidia-docker2)](https://github.com/NVIDIA/nvidia-docker)
 
@@ -100,7 +104,7 @@ $ sudo apt install -y nvidia-docker2
 $ sudo systemctl restart docker
 ```
 
-If `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` works, installation succeeded.
+If `sudo docker run --rm --gpus all nvidia/cuda:11.0.3-base nvidia-smi` works, installation succeeded.
 
 ## Quick start
 
@@ -124,7 +128,7 @@ $ git clone git@github.com:cvpaperchallenge/<YOUR_REPO_NAME>.git
 $ cd <YOUR_REPO_NAME>
 
 # Build Docker image and run container
-$ cd environments/gpu  # if you want to use only cpu, `cd environments/cpu` 
+$ cd environments/gpu  # if you want to use only cpu, `cd environments/cpu`
 $ sudo docker compose up -d
 
 # Run bash inside of container (jump into contaienr)
@@ -190,7 +194,7 @@ In Ascender, default value of both is `1000`. If UID or GID of your local PC is 
 
 NOTE: Now poetry 1.2 is used in Ascender. So this issue is expected to be solved.
 
-Currently, there is a compatibility issue between PyTorch and Poetry. This issue is being worked on by the Poetry community and is expected to be resolved in 1.2.0. (You can check pre-release of 1.2.0 from [here](https://github.com/python-poetry/poetry/releases/tag/1.2.0b3).) 
+Currently, there is a compatibility issue between PyTorch and Poetry. This issue is being worked on by the Poetry community and is expected to be resolved in 1.2.0. (You can check pre-release of 1.2.0 from [here](https://github.com/python-poetry/poetry/releases/tag/1.2.0b3).)
 
 We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release. In the meantime, please consider using the workaround described in [this issue](https://github.com/python-poetry/poetry/issues/4231).
 
@@ -205,3 +209,19 @@ We plan to incorporate Poetry 1.2.0 into Ascender immediately after its release.
 ### Change the Python version to run CI jobs
 
 By default, CI job (GitHub Actions workflow) of Ascender is run against Python 3.8 and 3.9. If you want to change the target Python version, please modify [the matrix part of `.github/workflows/lint-and-test.yaml`](https://github.com/cvpaperchallenge/Ascender/blob/master/.github/workflows/lint-and-test.yaml#L18).
+
+### When changes to the Dockerfile are not reflected correctly on the image build
+
+When you run `sudo docker compose up` after adding some modifications to the Dockerfile, you may find no changes have been made to the image built. In that case, please try following commands:
+
+```shell
+$ sudo docker compose build --no-cache
+$ sudo docker compose up --force-recreate
+```
+
+When changes to the Dockerfile are not reflected, potential reasons are:
+
+1. docker uses cache to build an image
+1. docker doesn't recreate a container
+
+`sudo docker compose build --no-cache` command build docker image with no cache (the solution for the 1st case). And `sudo docker compose up --force-recreate` command recreate and start containers (the solution for the 2nd case).
