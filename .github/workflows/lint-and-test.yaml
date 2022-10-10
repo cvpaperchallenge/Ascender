@@ -129,6 +129,14 @@ jobs:
       - name: Change permission
         run: chmod 777 .
 
+      - name: ls
+        run: docker container ls
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
+      - name: ls
+        run: docker-compose exec -T core ls -a
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
       # - name: Install dependencies
       #   run: docker-compose exec -T core poetry install --no-interaction
       #   working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
