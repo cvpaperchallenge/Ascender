@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:11.0.3-devel-ubuntu20.04
+ARG BASE_IMAGE=ubuntu:20.04
 FROM ${BASE_IMAGE}
 
 ARG PROJECT_NAME=ascender
@@ -40,5 +40,6 @@ USER ${USER_NAME}
 
 WORKDIR ${APPLICATION_DIRECTORY}
 
+# Install Python packages.
 COPY pyproject.toml poetry.lock .
 RUN test ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true" && poetry install || echo "skip to run poetry install."
