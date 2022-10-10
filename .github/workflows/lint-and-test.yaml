@@ -65,7 +65,8 @@ jobs:
       - name: Build docker image
         uses: docker/build-push-action@v3
         with:
-          context: ${{ env.DOCKER_FILE_DIRECTORY }}
+          context: .
+          file: ${{ env.DOCKER_FILE_DIRECTORY }}/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: false
           tags: ascender:${{ github.sha }}
