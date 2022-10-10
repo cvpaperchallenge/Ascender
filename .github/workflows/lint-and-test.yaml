@@ -71,9 +71,9 @@ jobs:
       - name: Change permission
         run: chmod 777 .
 
-      - name: Install dependencies
-        run: docker-compose exec -T core poetry install --no-interaction
-        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+      # - name: Install dependencies
+      #   run: docker-compose exec -T core poetry install --no-interaction
+      #   working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: Run lint
         run: docker-compose exec -T core make lint
