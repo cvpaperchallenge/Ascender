@@ -60,7 +60,7 @@ jobs:
           --set="core.args.RUN_POETRY_INSTALL_AT_BUILD_TIME=${{ env.RUN_POETRY_INSTALL_AT_BUILD_TIME }}" \
           --set="*.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}" \
           --set="*.cache-to=type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }}" \
-          --set="core.tags=core:latest" \
+          --set="core.tags=core:${{ matrix.python-version }}-${{ github.sha }}" \
           --load \
           -f docker-compose.yaml
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
@@ -87,8 +87,8 @@ jobs:
         run: docker image ls -a
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-      - name: Start docker container
-        run: docker-compose start
+      - name: Create and start docker container
+        run: docker-compose up --no-build -d
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       # pytest-cov export coverage data to a file
