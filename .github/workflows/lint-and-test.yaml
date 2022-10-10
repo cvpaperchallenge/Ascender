@@ -77,8 +77,12 @@ jobs:
       #       PYTHON_VERSION=${{ matrix.python-version }}
       #       RUN_POETRY_INSTALL_AT_BUILD_TIME=true
 
+      # - name: Start docker container
+      #   run: docker-compose up -d core
+      #   working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
       - name: Start docker container
-        run: docker-compose up -d core
+        run: docker-compose start
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       # pytest-cov export coverage data to a file
