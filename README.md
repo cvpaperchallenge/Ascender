@@ -144,8 +144,8 @@ Now, you are ready to start development with Ascender.
 
 ```bash
 # Stop container
-$ cd environments/gpu  # or `cd environments/cpu`
-$ sudo dokcer compose stop
+$ cd environments/gpu  # or `cd environments/cpu` 
+$ sudo docker compose stop
 ```
 
 ## FAQ
