@@ -20,11 +20,11 @@ isort:
 
 .PHONY: mdformat
 mdformat:
-	poetry run mdformat .
+	poetry run mdformat *.md
 
 .PHONY: mdformat-check
 mdformat-check:
-	poetry run mdformat --check .
+	poetry run mdformat --check *.md
 
 .PHONY: mypy
 mypy:
@@ -50,9 +50,5 @@ lint:
 
 .PHONY: test-all
 test-all:
-	$(MAKE) black
-	$(MAKE) flake8
-	$(MAKE) isort
-	$(MAKE) mdformat
-	$(MAKE) mypy
+	$(MAKE) lint
 	$(MAKE) test
