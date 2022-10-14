@@ -11,5 +11,5 @@ services:
       context: ../../
       dockerfile: environments/Dockerfile
     tty: true
-    # volumes:
-    #     - ../../:/home/challenger/ascender
+    volumes:
+        - ../../:/home/challenger/ascender
