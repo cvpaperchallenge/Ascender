@@ -65,7 +65,6 @@ jobs:
 
 
       - name: Generate Docker image tag
-        if: ${{ env.USE_CACHE == true }}
         run: |
             SHA=${{ github.sha }}
             TAG=$(TZ=UTC-9 date '+%Y%m')-${SHA:0:7}
