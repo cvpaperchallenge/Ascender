@@ -113,7 +113,6 @@ jobs:
         run: chmod 777 .
 
       - name: Move .venv directory
-        if: ${{ env.USE_CACHE == true }}
         run: docker-compose exec -T core mv ../.venv .
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
