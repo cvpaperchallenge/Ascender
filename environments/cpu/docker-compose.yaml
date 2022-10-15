@@ -8,7 +8,6 @@ services:
         - PYTHON_VERSION=3.8
         - UID=${HOST_UID-1000}
         - GID=${HOST_GID-1000}
-        - RUN_POETRY_INSTALL_AT_BUILD_TIME=false
       context: ../../
       dockerfile: environments/Dockerfile
     tty: true
