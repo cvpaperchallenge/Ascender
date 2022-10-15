@@ -34,6 +34,11 @@ isort = "^5.10.1"
 flake8 = "^4.0.1"
 mypy = "^0.950"
 
+[tool.poetry.group.dev.dependencies]
+mdformat-gfm = "^0.3.5"
+mdformat_frontmatter = "^0.4.1"
+mdformat_footnote = "^0.1.1"
+
 [tool.black]
 line-length = 88
 
