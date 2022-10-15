@@ -15,9 +15,6 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     LANG="C.UTF-8" \
     PYTHONPATH=${APPLICATION_DIRECTORY}
 
-RUN echo ${PYTHON_VERSION}
-RUN echo ${RUN_POETRY_INSTALL_AT_BUILD_TIME}
-
 # Following is needed to install python 3.7
 RUN apt update && apt install --no-install-recommends -y software-properties-common 
 RUN add-apt-repository ppa:deadsnakes/ppa
