@@ -129,6 +129,10 @@ jobs:
       - name: Change permission
         run: chmod 777 .
 
+      - name: Move .venv directory
+        run: docker-compose exec -T core mv ../.venv .
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
       - name: ls
         run: docker container ls
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}

@@ -38,10 +38,12 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTH
 # Add user. Without this, following process is executed as admin. 
 RUN groupadd -g ${GID} ${GROUP_NAME} \
     && useradd -ms /bin/sh -u ${UID} -g ${GID} ${USER_NAME}
-USER ${USER_NAME}
 
+USER ${USER_NAME}
 WORKDIR ${APPLICATION_DIRECTORY}
 
-# Install Python packages.
-COPY pyproject.toml poetry.lock poetry.toml .
+# If ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true", install Python package by Poetry and move .venv under ${HOME}.
+# This process is for CI (GitHub Actions). To prevent overwrite by volume of docker compose, .venv is moved under ${HOME}.
+COPY --chown=${UID}:${GID} pyproject.toml poetry.lock poetry.toml .
 RUN test ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true" && poetry install || echo "skip to run poetry install."
+RUN test ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true" && mv ${APPLICATION_DIRECTORY}/.venv ${HOME}/.venv || echo "skip to move .venv."
