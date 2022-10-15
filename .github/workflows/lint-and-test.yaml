@@ -63,7 +63,6 @@ jobs:
         if: ${{ env.USE_CACHE == 'true' }}
         run: npx wait-on tcp:5000
 
-
       - name: Generate Docker image tag
         run: |
             SHA=${{ github.sha }}
@@ -89,17 +88,9 @@ jobs:
         run: docker-compose build --parallel --build-arg PYTHON_VERSION=${{ matrix.python-version }} core
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-      - name: ls image -a
-        run: docker image ls -a
-        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
-
-      - name: Docker Compose Pull
+      - name: Pull Docker image
         if: ${{ env.USE_CACHE == 'true' }}
         run: docker compose pull
-        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
-
-      - name: ls image -a
-        run: docker image ls -a
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: Create and start docker container
@@ -112,16 +103,10 @@ jobs:
       - name: Change permission
         run: chmod 777 .
 
+      # In the built stage of Docker image, .venv dir is moved from working directory to prevent
+      # overwrite by volume operation of Docker. Here, .venv is moved back to working directory.
       - name: Move .venv directory
         run: docker-compose exec -T core mv ../.venv .
-        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
-
-      - name: ls
-        run: docker container ls
-        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
-
-      - name: ls
-        run: docker-compose exec -T core ls -a
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: Run lint
