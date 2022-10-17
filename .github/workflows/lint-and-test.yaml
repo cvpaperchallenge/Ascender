@@ -6,7 +6,7 @@ env:
   DOCKER_COMPOSE_DIRECTORY: environments/ci
   COMPOSE_DOCKER_CLI_BUILD: 1
   DOCKER_BUILDKIT: 1
-  USE_CACHE: false
+  USE_CACHE: true
 
 jobs:
   lint-and-test:
