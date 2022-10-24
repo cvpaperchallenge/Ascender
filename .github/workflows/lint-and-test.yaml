@@ -61,7 +61,7 @@ jobs:
       
       - name: Wait for Docker registry
         if: ${{ env.USE_CACHE == 'true' }}
-        run: npx wait-on tcp:5000
+        run: npx wait-on --httpTimeout 30000 tcp:5000
 
       - name: Generate Docker image tag
         run: |
@@ -90,7 +90,7 @@ jobs:
 
       - name: Pull Docker image
         if: ${{ env.USE_CACHE == 'true' }}
-        run: docker compose pull
+        run: docker-compose pull
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: Create and start docker container
