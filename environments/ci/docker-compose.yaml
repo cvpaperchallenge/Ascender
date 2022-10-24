@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  core:
+    image: localhost:5000/core:${DOCKER_IMAGE_TAG_CI}
+    build:
+      args:
+        - BASE_IMAGE=ubuntu:20.04
+        - PYTHON_VERSION=3.8
+        - RUN_POETRY_INSTALL_AT_BUILD_TIME=true
+      context: ../../
+      dockerfile: environments/Dockerfile
+    tty: true
+    volumes:
+        - ../../:/home/challenger/ascender
