@@ -10,5 +10,6 @@ services:
         - RUN_POETRY_INSTALL_AT_BUILD_TIME=true
       context: ../../
       dockerfile: environments/Dockerfile
+    tty: true
     volumes:
         - ../../:/home/challenger/ascender
