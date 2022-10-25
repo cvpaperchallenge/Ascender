@@ -1,5 +1,6 @@
 # Ascender
 
+![stable](https://img.shields.io/badge/stable-v0.1.2-blue)
 ![python versions](https://img.shields.io/badge/python-3.8%20%7C%203.9-blue)
 [![tests](https://github.com/cvpaperchallenge/Ascender/actions/workflows/lint-and-test.yaml/badge.svg)](https://github.com/cvpaperchallenge/Ascender/actions/workflows/lint-and-test.yaml)
 [![MIT License](https://img.shields.io/github/license/cvpaperchallenge/Ascender?color=green)](LICENSE)
@@ -224,3 +225,8 @@ When changes to the Dockerfile are not reflected, potential reasons are:
 1. docker doesn't recreate a container
 
 `sudo docker compose build --no-cache` command build docker image with no cache (the solution for the 1st case). And `sudo docker compose up --force-recreate` command recreate and start containers (the solution for the 2nd case).
+
+### Activate/deavtivate caching in CI job
+
+Caching has been introduced in CI job (`lint-and-tests.yaml`) since `v0.1.2` to minimize latency due to Docker image build and Poetry install in the CI job.
+However, this feature has not yet been fully tested, so if you do not want to use it in the CI job, please change the value of `USE_CACHE` variable in `lint-and-tests.yaml` to `false`.
