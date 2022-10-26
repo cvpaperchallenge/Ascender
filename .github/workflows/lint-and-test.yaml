@@ -2,9 +2,11 @@ name: tests
 on: [pull_request]
 
 env:
-  DOCKER_COMPOSE_DIRECTORY: environments/cpu
+  DOCKER_FILE_DIRECTORY: environments
+  DOCKER_COMPOSE_DIRECTORY: environments/ci
   COMPOSE_DOCKER_CLI_BUILD: 1
   DOCKER_BUILDKIT: 1
+  USE_CACHE: true
 
 jobs:
   lint-and-test:
@@ -21,15 +23,78 @@ jobs:
             image: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - run: pwd && docker-compose --version && docker --version
+      - uses: actions/checkout@v3
+
+      - name: Check version info
+        run: pwd && docker-compose --version && docker --version
+
+      - name: Set up Docker Buildx
+        if: ${{ env.USE_CACHE == 'true' }}
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: network=host
+
+      - name: Cache Docker layers
+        if: ${{ env.USE_CACHE == 'true' }}
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache/${{ matrix.python-version }}
+          key: buildx-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            buildx-${{ github.ref }}
+            buildx-
+
+      - name: Cache Docker registry
+        if: ${{ env.USE_CACHE == 'true' }}
+        uses: actions/cache@v3
+        with:
+          path: /tmp/docker-registry/${{ matrix.python-version }}
+          key: docker-registry-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            docker-registry-${{ github.ref }}
+            docker-registry-
+
+      - name: Boot-up local Docker registry
+        if: ${{ env.USE_CACHE == 'true' }}
+        run: docker run -d -p 5000:5000 --restart=always --name registry -v /tmp/docker-registry:/var/lib/registry registry:2
+      
+      - name: Wait for Docker registry
+        if: ${{ env.USE_CACHE == 'true' }}
+        run: npx wait-on --httpTimeout 30000 tcp:5000
+
+      - name: Generate Docker image tag
+        run: |
+            SHA=${{ github.sha }}
+            TAG=$(TZ=UTC-9 date '+%Y%m')-${SHA:0:7}
+            echo "DOCKER_IMAGE_TAG_CI=$TAG" >> $GITHUB_ENV
+            echo TAG $TAG
+            echo "::set-output name=docker_image_tag_ci::$TAG"
+
+      - name: Build docker image with cache
+        if: ${{ env.USE_CACHE == 'true' }}
+        run: |
+          docker buildx bake \
+          --builder="${{ steps.buildx.outputs.name }}" \
+          --set="core.args.PYTHON_VERSION=${{ matrix.python-version }}" \
+          --set="*.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}" \
+          --set="*.cache-to=type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }}" \
+          --push \
+          -f docker-compose.yaml
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: Build docker image
+        if: ${{ env.USE_CACHE != 'true' }}
         run: docker-compose build --parallel --build-arg PYTHON_VERSION=${{ matrix.python-version }} core
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
-      - name: Start docker container
-        run: docker-compose up -d core
+      - name: Pull Docker image
+        if: ${{ env.USE_CACHE == 'true' }}
+        run: docker-compose pull
+        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
+      - name: Create and start docker container
+        run: docker-compose up --no-build -d
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       # pytest-cov export coverage data to a file
@@ -38,8 +103,10 @@ jobs:
       - name: Change permission
         run: chmod 777 .
 
-      - name: Install dependencies
-        run: docker-compose exec -T core poetry install --no-interaction
+      # In the built stage of Docker image, .venv dir is moved from working directory to prevent
+      # overwrite by volume operation of Docker. Here, .venv is moved back to working directory.
+      - name: Move .venv directory
+        run: docker-compose exec -T core mv ../.venv .
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
 
       - name: Run lint
@@ -49,3 +116,12 @@ jobs:
       - name: Run test code
         run: docker-compose exec -T core make test
         working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+
+        # Temp fix
+        # https://github.com/docker/build-push-action/issues/252
+        # https://github.com/moby/buildkit/issues/1896
+      - name: Move cache
+        if: ${{ env.USE_CACHE == 'true' }}
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
