@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you want to cite the framework, feel free to use this (but only if you loved it 😊)"
+title: "Ascender"
+abstract: "Ascender is a GitHub repository template for research projects using Python as a developing language."
+date-released: 2022-10-26
+authors:
+  - family-names: "Fukuhara"
+    given-names: "Yoshihiro"
+  - family-names: "Kubotani"
+    given-names: "Yoshiki"
+  - name: "cvpaper.challenge XCCV group"
+version: 0.1.2
+license: "MIT"
+url: "https://github.com/cvpaperchallenge/Ascender"
