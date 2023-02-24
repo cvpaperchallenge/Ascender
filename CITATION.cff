@@ -10,5 +10,6 @@ authors:
     given-names: "Yoshiki"
   - name: "cvpaper.challenge XCCV group"
 version: 0.1.2
+doi: 10.5281/zenodo.7672842
 license: "MIT"
 url: "https://github.com/cvpaperchallenge/Ascender"
