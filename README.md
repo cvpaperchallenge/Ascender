@@ -217,7 +217,7 @@ When you run `sudo docker compose up` after adding some modifications to the Doc
 
 ```shell
 $ sudo docker compose build --no-cache
-$ sudo docker compose up --force-recreate
+$ sudo docker compose up --force-recreate -d
 ```
 
 When changes to the Dockerfile are not reflected, potential reasons are:
@@ -225,7 +225,7 @@ When changes to the Dockerfile are not reflected, potential reasons are:
 1. docker uses cache to build an image
 1. docker doesn't recreate a container
 
-`sudo docker compose build --no-cache` command build docker image with no cache (the solution for the 1st case). And `sudo docker compose up --force-recreate` command recreate and start containers (the solution for the 2nd case).
+`sudo docker compose build --no-cache` command build docker image with no cache (the solution for the 1st case). And `sudo docker compose up --force-recreate -d` command recreate and start containers (the solution for the 2nd case).
 
 ### Activate/deavtivate caching in CI job
 
