@@ -58,7 +58,7 @@ jobs:
       - name: Boot-up local Docker registry
         if: ${{ env.USE_CACHE == 'true' }}
         run: docker run -d -p 5000:5000 --restart=always --name registry -v /tmp/docker-registry:/var/lib/registry registry:2
-      
+
       - name: Wait for Docker registry
         if: ${{ env.USE_CACHE == 'true' }}
         run: npx wait-on --httpTimeout 30000 tcp:5000

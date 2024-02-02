@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ascender"
-version = "0.1.0"
+version = "0.1.3"
 description = "Project template for XCCV group of cvpaper.challenge."
 license = "MIT"
 authors = ["cvpaper.challenge XCCV group"]
@@ -28,21 +28,16 @@ classifiers = [
 python = "^3.8"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.1.0"
-isort = "^5.10.1"
+black = "^23.7.0"
+ruff = "^0.0.286"
 mdformat-gfm = "^0.3.5"
 mdformat-frontmatter = "^2.0.1"
 mdformat_footnote = "^0.1.1"
-flake8 = "^5.0.0"
-mypy = "^1.0.1"
-pytest-cov = "^4.0.0"
+mypy = "^1.5.1"
+pytest-cov = "^4.1.0"
 
 [tool.black]
 line-length = 88
-
-[tool.isort]
-profile = "black"
-line_length = 88
 
 [tool.mypy]
 python_version = 3.8
@@ -68,6 +63,13 @@ warn_return_any = true
 warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
+
+[tool.ruff]
+select = ["E", "F", "B", "I"]
+ignore = ["E501", "B006"]
+line-length = 88
+target-version = "py38"
+fixable = ["E", "F"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
