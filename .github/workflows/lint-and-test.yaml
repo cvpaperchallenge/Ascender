@@ -1,6 +1,14 @@
 name: lint-and-test
-on: [pull_request]
-
+permissions: {}
+on:
+  pull_request:
+    paths: ["src/**"]
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   DOCKER_FILE_DIRECTORY: environments
   DOCKER_COMPOSE_DIRECTORY: environments/ci
@@ -21,12 +29,14 @@ jobs:
         include:
           - os: ubuntu
             image: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Check version info
-        run: pwd && docker compose --version && docker --version
+        run: pwd && docker compose version && docker --version
 
       # Provide a builder instance with docker buildx.
       - name: Set up Docker Buildx
@@ -37,32 +47,35 @@ jobs:
       - name: Cache Docker layers
         if: env.USE_CACHE == 'true'
         id: build-cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
-          path: /tmp/.buildx-cache/${{ matrix.python-version }}
+          path: ${{ runner.temp }}/${{ matrix.python-version }}
           key: buildx-${{ hashFiles(format('{0}/Dockerfile', env.DOCKER_FILE_DIRECTORY), format('{0}/docker-compose.yaml', env.DOCKER_COMPOSE_DIRECTORY), 'poetry.lock') }}
 
       # If build cache is found, use it to build the Docker image.
       # The build is carried out using the `bake` command from buildx, referencing the `docker-compose.yaml` for CI.
       - name: Build docker image with cache using buildx
         if: steps.build-cache.outputs.cache-hit == 'true' && env.USE_CACHE == 'true'
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v6
         with:
-          files: docker-compose.yaml
+          files: "${{ env.DOCKER_COMPOSE_DIRECTORY }}/docker-compose.yaml"
           workdir: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
           load: true
           set: |
             core.args.PYTHON_VERSION=${{ matrix.python-version }}
-            *.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}
+            core.cache-from=type=local,src=${{ runner.temp }}/${{ matrix.python-version }}
 
       # If build cache is not found, build the Docker image without cache.
-      # It also works with docker/bake-action, but the `bake` command creates `/tmp/.buildx-cache/${{ matrix.python-version }}` as specified in cache-from.
-      # Since it is a cache directory tracked by actions/cache, if the directory exists at the end of the workflow, unnecessary cache is created in the merge branch.
-      # We used the regular build command to avoid this problem.
+      # The build is carried out using the `bake` command from buildx, referencing the `docker-compose.yaml` for CI.
       - name: Build docker image without cache using normal build
         if: steps.build-cache.outputs.cache-hit != 'true' || env.USE_CACHE != 'true'
-        run: docker compose build --parallel --build-arg PYTHON_VERSION=${{ matrix.python-version }} core
-        working-directory: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+        uses: docker/bake-action@v6
+        with:
+          files: "${{ env.DOCKER_COMPOSE_DIRECTORY }}/docker-compose.yaml"
+          workdir: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
+          load: true
+          set: |
+            core.args.PYTHON_VERSION=${{ matrix.python-version }}
 
       - name: Create and start docker container
         run: docker compose up --no-build -d
