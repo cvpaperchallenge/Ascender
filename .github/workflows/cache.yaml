@@ -47,7 +47,7 @@ jobs:
       - name: Cache Docker layers
         if: env.USE_CACHE == 'true'
         id: build-cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache@v4
         with:
           path: ${{ runner.temp }}/${{ matrix.python-version }}
           key: buildx-${{ hashFiles(format('{0}/Dockerfile', env.DOCKER_FILE_DIRECTORY), format('{0}/docker-compose.yaml', env.DOCKER_COMPOSE_DIRECTORY), 'poetry.lock') }}
@@ -62,4 +62,4 @@ jobs:
           load: true
           set: |
             core.args.PYTHON_VERSION=${{ matrix.python-version }}
-            *.cache-to=type=local,dest=${{ runner.temp }}/${{ matrix.python-version }}
+            core.cache-to=type=local,dest=${{ runner.temp }}/${{ matrix.python-version }}
