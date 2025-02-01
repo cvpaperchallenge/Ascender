@@ -1,8 +1,12 @@
 name: cache
+permissions: {}
 on:
   pull_request:
     types:
       - closed
+defaults:
+  run:
+    shell: bash
 
 env:
   DOCKER_FILE_DIRECTORY: environments
@@ -21,16 +25,18 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu]
-        python-version: ["3.8", "3.9"]
+        python-version: ["3.10", "3.11", "3.12"]
         include:
           - os: ubuntu
             image: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Check version info
-        run: pwd && docker compose --version && docker --version
+        run: pwd && docker compose version && docker --version
 
       # Provide a builder instance with docker buildx.
       - name: Set up Docker Buildx
@@ -43,27 +49,17 @@ jobs:
         id: build-cache
         uses: actions/cache@v4
         with:
-          path: /tmp/.buildx-cache/${{ matrix.python-version }}
+          path: ${{ runner.temp }}/${{ matrix.python-version }}
           key: buildx-${{ hashFiles(format('{0}/Dockerfile', env.DOCKER_FILE_DIRECTORY), format('{0}/docker-compose.yaml', env.DOCKER_COMPOSE_DIRECTORY), 'poetry.lock') }}
 
       # If build cache is not found, build the Docker image to create a new cache.
       - name: Build docker image with cache using buildx
         if: steps.build-cache.outputs.cache-hit != 'true' && env.USE_CACHE == 'true'
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v6
         with:
-          files: docker-compose.yaml
+          files: "${{ env.DOCKER_COMPOSE_DIRECTORY }}/docker-compose.yaml"
           workdir: ${{ env.DOCKER_COMPOSE_DIRECTORY }}
           load: true
           set: |
             core.args.PYTHON_VERSION=${{ matrix.python-version }}
-            *.cache-from=type=local,src=/tmp/.buildx-cache/${{ matrix.python-version }}
-            *.cache-to=type=local,dest=/tmp/.buildx-cache-new/${{ matrix.python-version }}
-
-      # Temp fix
-      # https://github.com/docker/build-push-action/issues/252
-      # https://github.com/moby/buildkit/issues/1896
-      - name: Move cache
-        if: steps.build-cache.outputs.cache-hit != 'true' && env.USE_CACHE == 'true'
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+            core.cache-to=type=local,dest=${{ runner.temp }}/${{ matrix.python-version }}
